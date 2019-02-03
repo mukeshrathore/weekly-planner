@@ -19,7 +19,7 @@ export class StoreComponent implements OnInit {
     private sharedService: SharedService,
     private fb: FormBuilder
   ) {
-    this.stores = db.collection('stores').valueChanges();
+    this.stores = db.collection('stores', ref => ref.orderBy('storeName')).valueChanges();
   }
 
 

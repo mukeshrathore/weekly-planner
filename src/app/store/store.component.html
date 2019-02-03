@@ -6,9 +6,9 @@
   <button type="submit" (click)="addStore()">Add Store</button>
   <button type="reset">Clear</button>
 </form>
-<h3>List of Billers already Added: </h3>
-<ul>
+<h3>List of Stores already Added: </h3>
+<ol>
   <li *ngFor="let biller of stores | async">
     {{ biller.storeName }}
   </li>
-</ul>
+</ol>
