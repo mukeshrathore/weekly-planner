@@ -9,6 +9,10 @@ import { MatInputModule } from '@angular/material/input';
     CommonModule,
     MatFormFieldModule,
     MatInputModule
+  ],
+  exports:[
+    MatFormFieldModule,
+    MatInputModule
   ]
 })
 export class ImportMaterialModuleModule { }

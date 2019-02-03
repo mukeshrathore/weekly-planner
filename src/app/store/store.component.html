@@ -1,8 +1,10 @@
-<form class="example-form" novalidate>
-  <mat-form-field class="example-full-width">
-    <input matInput placeholder="Favorite food" value="Sushi">
+<form [formGroup]="storeForm" novalidate>
+  <mat-form-field>
+    <input matInput placeholder="Store Name" formControlName="storeName" required>
   </mat-form-field>
 
+  <button type="submit" (click)="addStore()">Add Store</button>
+  <button type="reset">Clear</button>
 </form>
 <h3>List of Billers already Added: </h3>
 <ul>
