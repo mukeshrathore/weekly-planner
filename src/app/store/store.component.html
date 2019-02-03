@@ -3,8 +3,11 @@
     <input matInput placeholder="Store Name" formControlName="storeName" required>
   </mat-form-field>
 
-  <button type="submit" (click)="addStore()">Add Store</button>
-  <button type="reset">Clear</button>
+  <div class="example-button-row">
+    <button mat-raised-button color="primary" type="submit" (click)="addStore()">Add Store</button>
+    <button mat-raised-button color="accent" type="reset">Clear</button>
+  </div>
+
 </form>
 <h3>List of Stores already Added: </h3>
 <ol>
