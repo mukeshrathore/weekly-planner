@@ -1,3 +1,11 @@
-<p>
-  bill works!
-</p>
+<form [formGroup]="billForm" novalidate>
+  <mat-form-field>
+    <input matInput placeholder="Store Name" formControlName="storeName" required>
+  </mat-form-field>
+
+  <div class="example-button-row">
+    <button mat-raised-button color="primary" type="submit" (click)="addBill()">Add Store</button>
+    <button mat-raised-button color="accent" type="reset">Clear</button>
+  </div>
+
+</form>

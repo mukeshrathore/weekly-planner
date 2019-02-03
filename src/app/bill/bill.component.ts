@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-bill',
@@ -6,10 +7,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./bill.component.scss']
 })
 export class BillComponent implements OnInit {
-
-  constructor() { }
+  billForm: FormGroup;
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
+    this.createForm();
   }
+  createForm() {
+    this.billForm = this.fb.group({
+      billDate: [null, Validators.required],
+      billName: [null, Validators.required],
+      storeName: [null, Validators.required],
+      billAmount: [null, Validators.required],
+      PayMedium: [null, Validators.required]
+    })
+  }
+  addBill() {
 
+  }
 }
