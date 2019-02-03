@@ -1,0 +1,12 @@
+<form class="example-form" novalidate>
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Favorite food" value="Sushi">
+  </mat-form-field>
+
+</form>
+<h3>List of Billers already Added: </h3>
+<ul>
+  <li *ngFor="let biller of stores | async">
+    {{ biller.storeName }}
+  </li>
+</ul>

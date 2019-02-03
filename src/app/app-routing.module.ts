@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { BillerComponent } from './biller/biller.component';
-import { BillComponent } from './bill/bill.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { BillComponent } from './bill/bill.component';
+import { StoreComponent } from './store/store.component';
 
 const routes: Routes = [
   {
-    path: 'billers',
-    component: BillerComponent
+    path: 'store',
+    component: StoreComponent
   },
   {
     path: 'bill',
