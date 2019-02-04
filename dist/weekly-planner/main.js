@@ -87,7 +87,7 @@ var AppRoutingModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<a href=\"javascript:void(0)\" rel=\"noopener noreferrer\" routerLink=\"/bill\">Add Bill</a>\n\n<a href=\"javascript:void(0)\" rel=\"noopener noreferrer\" routerLink=\"/store\">Add Store</a>\n<router-outlet></router-outlet>"
+module.exports = "<!-- <a href=\"javascript:void(0)\" rel=\"noopener noreferrer\" routerLink=\"/bill\">Add Bill</a>\n\n<a href=\"javascript:void(0)\" rel=\"noopener noreferrer\" routerLink=\"/store\">Add Store</a> -->\n<router-outlet></router-outlet>"
 
 /***/ }),
 
@@ -216,7 +216,7 @@ var AppModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<form [formGroup]=\"billForm\" novalidate>\n  <mat-form-field>\n    <input matInput placeholder=\"Store Name\" formControlName=\"storeName\" required>\n  </mat-form-field>\n\n  <div class=\"example-button-row\">\n    <button mat-raised-button color=\"primary\" type=\"submit\" (click)=\"addBill()\">Add Store</button>\n    <button mat-raised-button color=\"accent\" type=\"reset\">Clear</button>\n  </div>\n\n</form>"
+module.exports = "<form [formGroup]=\"billForm\" novalidate class=\"mrgTop10\">\n  <mat-grid-list cols=\"4\" rowHeight=\"65px\" gutterSize=\"10px\">\n\n    <mat-grid-tile colspan=\"1\">\n      <mat-form-field>\n        <input matInput [matDatepicker]=\"picker\" placeholder=\"Bill Date\" formControlName=\"billDate\" autocomplete=\"off\">\n        <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\n        <mat-datepicker #picker></mat-datepicker>\n      </mat-form-field>\n    </mat-grid-tile>\n\n    <mat-grid-tile colspan=\"1\">\n      <mat-form-field>\n        <mat-select placeholder=\"Bill Category\" formControlName=\"billCategory\">\n          <mat-option *ngFor=\"let category of billCategories\" [value]=\"category.value\">\n            {{category.viewValue}}\n          </mat-option>\n        </mat-select>\n      </mat-form-field>\n    </mat-grid-tile>\n\n    <mat-grid-tile colspan=\"1\">\n      <mat-form-field>\n        <mat-select placeholder=\"Store Name\" formControlName=\"storeName\">\n          <mat-option *ngFor=\"let store of stores\" [value]=\"store.value\">\n            {{store.viewValue}}\n          </mat-option>\n        </mat-select>\n      </mat-form-field>\n    </mat-grid-tile>\n\n    <mat-grid-tile colspan=\"1\">\n      <mat-form-field>\n        <input matInput type=\"number\" placeholder=\"bill Amount\" formControlName=\"billAmount\" required>\n      </mat-form-field>\n    </mat-grid-tile>\n\n    <mat-grid-tile colspan=\"1\">\n      <mat-form-field>\n        <mat-select placeholder=\"Bill Paid By\" formControlName=\"PayMedium\">\n          <mat-option *ngFor=\"let medium of billMedium\" [value]=\"medium.value\">\n            {{medium.viewValue}}\n          </mat-option>\n        </mat-select>\n      </mat-form-field>\n    </mat-grid-tile>\n\n  </mat-grid-list>\n\n  <mat-grid-list cols=\"1\" rowHeight=\"55px\" gutterSize=\"10px\">\n    <mat-grid-tile colspan=\"1\">\n      <div class=\"example-button-row\">\n        <button mat-raised-button color=\"primary\" type=\"submit\" (click)=\"addBill()\">Save Bill</button>\n        <button mat-raised-button color=\"accent\" type=\"reset\">Clear</button>\n      </div>\n    </mat-grid-tile>\n  </mat-grid-list>\n\n</form>"
 
 /***/ }),
 
@@ -227,7 +227,7 @@ module.exports = "<form [formGroup]=\"billForm\" novalidate>\n  <mat-form-field>
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2JpbGwvYmlsbC5jb21wb25lbnQuc2NzcyJ9 */"
+module.exports = ".example-button-row button {\n  margin-right: 8px; }\n\n.mrgTop10 {\n  margin-top: 10px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYmlsbC9EOlxcZ2l0aHViLXJlcG9zXFx3ZWVrbHktcGxhbm5lci9zcmNcXGFwcFxcYmlsbFxcYmlsbC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGlCQUFpQixFQUFBOztBQUVuQjtFQUNFLGdCQUFlLEVBQUEiLCJmaWxlIjoic3JjL2FwcC9iaWxsL2JpbGwuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuZXhhbXBsZS1idXR0b24tcm93IGJ1dHRvbntcclxuICBtYXJnaW4tcmlnaHQ6IDhweDtcclxufVxyXG4ubXJnVG9wMTB7XHJcbiAgbWFyZ2luLXRvcDoxMHB4O1xyXG59Il19 */"
 
 /***/ }),
 
@@ -244,26 +244,78 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _shared_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../shared.service */ "./src/app/shared.service.ts");
+
 
 
 
 var BillComponent = /** @class */ (function () {
-    function BillComponent(fb) {
+    function BillComponent(fb, sharedService) {
         this.fb = fb;
+        this.sharedService = sharedService;
+        this.billMedium = [
+            {
+                value: 'chase_cc',
+                viewValue: 'Chase Credit Card'
+            },
+            {
+                value: 'discover_cc',
+                viewValue: 'Discover Credit Card'
+            },
+            {
+                value: 'bofa_cc',
+                viewValue: 'Bank of America Credit Card'
+            },
+            {
+                value: 'bofa_dc',
+                viewValue: 'Bank of America Debit Card'
+            },
+            {
+                value: 'wells_dc',
+                viewValue: 'Wells Fargo Debit Card'
+            }
+        ];
+        this.billCategories = [
+            {
+                value: 'grocery',
+                viewValue: 'Grocery'
+            },
+            {
+                value: 'gas',
+                viewValue: 'Gas'
+            },
+            {
+                value: 'other',
+                viewValue: 'other'
+            },
+        ];
+        this.stores = [
+            {
+                value: 'patel',
+                viewValue: 'Patel Brother'
+            },
+            {
+                value: 'walmart',
+                viewValue: 'Walmart'
+            },
+        ];
     }
     BillComponent.prototype.ngOnInit = function () {
         this.createForm();
     };
     BillComponent.prototype.createForm = function () {
         this.billForm = this.fb.group({
-            billDate: [null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
-            billName: [null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            billDate: [new Date(), _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            // billName: [null, Validators.required],
+            billCategory: [null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
             storeName: [null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
             billAmount: [null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
             PayMedium: [null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]
         });
     };
     BillComponent.prototype.addBill = function () {
+        console.log(this.billForm.value);
+        this.sharedService.addBill(this.billForm.value);
     };
     BillComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -271,7 +323,7 @@ var BillComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./bill.component.html */ "./src/app/bill/bill.component.html"),
             styles: [__webpack_require__(/*! ./bill.component.scss */ "./src/app/bill/bill.component.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"], _shared_service__WEBPACK_IMPORTED_MODULE_3__["SharedService"]])
     ], BillComponent);
     return BillComponent;
 }());
@@ -308,12 +360,20 @@ var ImportMaterialModuleModule = /** @class */ (function () {
                 _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatFormFieldModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatInputModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatButtonModule"]
+                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatButtonModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDatepickerModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatNativeDateModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatSelectModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatGridListModule"]
             ],
             exports: [
                 _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatFormFieldModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatInputModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatButtonModule"]
+                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatButtonModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDatepickerModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatNativeDateModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatSelectModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatGridListModule"]
             ]
         })
     ], ImportMaterialModuleModule);
@@ -406,7 +466,11 @@ var SharedService = /** @class */ (function () {
         this.db.collection(this.basePath).add(requestObj);
         // this.db.collection(this.basePath);
         // obj.push(requestObj);
-        console.log('Success');
+        console.log('Success: Store Added');
+    };
+    SharedService.prototype.addBill = function (requestObj) {
+        this.db.collection('/bills').add(requestObj);
+        console.log('Success: Bill Added');
     };
     SharedService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
