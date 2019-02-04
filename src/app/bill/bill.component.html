@@ -37,7 +37,7 @@
 
     <mat-grid-tile colspan="1">
       <mat-form-field>
-        <mat-select placeholder="Bill Paid By" formControlName="PayMedium">
+        <mat-select placeholder="Bill Paid By" formControlName="payMedium">
           <mat-option *ngFor="let medium of billMedium" [value]="medium.value">
             {{medium.viewValue}}
           </mat-option>
@@ -57,3 +57,14 @@
   </mat-grid-list>
 
 </form>
+
+<h3>List of bills already Added: </h3>
+<ol>
+  <li *ngFor="let bill of bills | async">
+    billDate: {{bill.billDate}} <br />
+    billCategory: {{bill.billCategory}}<br />
+    storeName: {{bill.storeName}}<br />
+    billAmount: {{bill.billAmount}}<br />
+    payMedium: {{bill.payMedium}}<br />
+  </li>
+</ol>

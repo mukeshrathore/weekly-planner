@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SharedService } from '../shared.service';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-bill',
@@ -9,7 +11,10 @@ import { SharedService } from '../shared.service';
 })
 export class BillComponent implements OnInit {
   billForm: FormGroup;
-  constructor(private fb: FormBuilder, private sharedService: SharedService) { }
+  bills: Observable<any[]>;
+  constructor(private fb: FormBuilder, private sharedService: SharedService, private db: AngularFirestore) {
+    this.bills = db.collection('stores', ref => ref.orderBy('storeName')).valueChanges();
+  }
 
   billMedium = [
     {
@@ -72,7 +77,7 @@ export class BillComponent implements OnInit {
       billCategory: [null, Validators.required],
       storeName: [null, Validators.required],
       billAmount: [null, Validators.required],
-      PayMedium: [null, Validators.required]
+      payMedium: [null, Validators.required]
     });
   }
 
