@@ -17,6 +17,11 @@ export class SharedService {
     this.db.collection(this.basePath).add(requestObj);
     // this.db.collection(this.basePath);
     // obj.push(requestObj);
-    console.log('Success');
+    console.log('Success: Store Added');
+  }
+
+  addBill(requestObj) {
+    this.db.collection('/bills').add(requestObj);
+    console.log('Success: Bill Added');
   }
 }

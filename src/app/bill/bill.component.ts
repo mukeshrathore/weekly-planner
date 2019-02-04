@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { SharedService } from '../shared.service';
 
 @Component({
   selector: 'app-bill',
@@ -8,7 +9,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class BillComponent implements OnInit {
   billForm: FormGroup;
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private sharedService: SharedService) { }
 
   billMedium = [
     {
@@ -66,7 +67,7 @@ export class BillComponent implements OnInit {
 
   createForm() {
     this.billForm = this.fb.group({
-      billDate: [null, Validators.required],
+      billDate: [new Date(), Validators.required],
       // billName: [null, Validators.required],
       billCategory: [null, Validators.required],
       storeName: [null, Validators.required],
@@ -74,7 +75,9 @@ export class BillComponent implements OnInit {
       PayMedium: [null, Validators.required]
     });
   }
-  addBill() {
 
+  addBill() {
+    console.log(this.billForm.value);
+    this.sharedService.addBill(this.billForm.value);
   }
 }

@@ -1,45 +1,59 @@
 <form [formGroup]="billForm" novalidate>
-  <mat-form-field>
-    <input matInput [matDatepicker]="picker" placeholder="Bill Date" formControlName="billDate">
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
+  <mat-grid-list cols="4" rowHeight="65px" gutterSize="10px">
 
-  <!-- <mat-form-field>
-    <input matInput placeholder="bill Name" formControlName="billName" required>
-  </mat-form-field> -->
+    <mat-grid-tile colspan="1">
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker" placeholder="Bill Date" formControlName="billDate" autocomplete="off">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </mat-grid-tile>
 
-  <mat-form-field>
-    <mat-select placeholder="Bill Category" formControlName="billCategory">
-      <mat-option *ngFor="let category of billCategories" [value]="category.value">
-        {{category.viewValue}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+    <mat-grid-tile colspan="1">
+      <mat-form-field>
+        <mat-select placeholder="Bill Category" formControlName="billCategory">
+          <mat-option *ngFor="let category of billCategories" [value]="category.value">
+            {{category.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-grid-tile>
 
-  <mat-form-field>
-    <mat-select placeholder="Store Name" formControlName="storeName">
-      <mat-option *ngFor="let store of stores" [value]="store.value">
-        {{store.viewValue}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+    <mat-grid-tile colspan="1">
+      <mat-form-field>
+        <mat-select placeholder="Store Name" formControlName="storeName">
+          <mat-option *ngFor="let store of stores" [value]="store.value">
+            {{store.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-grid-tile>
 
-  <mat-form-field>
-    <input matInput type="number" placeholder="bill Amount" formControlName="billAmount" required>
-  </mat-form-field>
+    <mat-grid-tile colspan="1">
+      <mat-form-field>
+        <input matInput type="number" placeholder="bill Amount" formControlName="billAmount" required>
+      </mat-form-field>
+    </mat-grid-tile>
 
-  <mat-form-field>
-    <mat-select placeholder="Bill Paid By" formControlName="PayMedium">
-      <mat-option *ngFor="let medium of billMedium" [value]="medium.value">
-        {{medium.viewValue}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+    <mat-grid-tile colspan="1">
+      <mat-form-field>
+        <mat-select placeholder="Bill Paid By" formControlName="PayMedium">
+          <mat-option *ngFor="let medium of billMedium" [value]="medium.value">
+            {{medium.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-grid-tile>
 
-  <div class="example-button-row">
-    <button mat-raised-button color="primary" type="submit" (click)="addBill()">Add Store</button>
-    <button mat-raised-button color="accent" type="reset">Clear</button>
-  </div>
+  </mat-grid-list>
+
+  <mat-grid-list cols="1" rowHeight="55px" gutterSize="10px">
+    <mat-grid-tile colspan="1">
+      <div class="example-button-row">
+        <button mat-raised-button color="primary" type="submit" (click)="addBill()">Save Bill</button>
+        <button mat-raised-button color="accent" type="reset">Clear</button>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
 
 </form>
