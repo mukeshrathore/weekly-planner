@@ -13,7 +13,7 @@ export class BillComponent implements OnInit {
   billForm: FormGroup;
   bills: Observable<any[]>;
   constructor(private fb: FormBuilder, private sharedService: SharedService, private db: AngularFirestore) {
-    this.bills = db.collection('stores', ref => ref.orderBy('storeName')).valueChanges();
+    this.bills = db.collection('bills').valueChanges();
   }
 
   billMedium = [
