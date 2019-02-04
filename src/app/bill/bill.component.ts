@@ -17,6 +17,7 @@ export class BillComponent implements OnInit {
     this.billForm = this.fb.group({
       billDate: [null, Validators.required],
       billName: [null, Validators.required],
+      billCategory:[null, Validators.required],
       storeName: [null, Validators.required],
       billAmount: [null, Validators.required],
       PayMedium: [null, Validators.required]
