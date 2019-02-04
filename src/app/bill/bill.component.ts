@@ -84,5 +84,6 @@ export class BillComponent implements OnInit {
   addBill() {
     console.log(this.billForm.value);
     this.sharedService.addBill(this.billForm.value);
+    this.billForm.reset();
   }
 }
