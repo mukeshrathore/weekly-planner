@@ -216,7 +216,7 @@ var AppModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<form [formGroup]=\"billForm\" novalidate class=\"mrgTop10\">\n  <mat-grid-list cols=\"4\" rowHeight=\"65px\" gutterSize=\"10px\">\n\n    <mat-grid-tile colspan=\"1\">\n      <mat-form-field>\n        <input matInput [matDatepicker]=\"picker\" placeholder=\"Bill Date\" formControlName=\"billDate\" autocomplete=\"off\">\n        <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\n        <mat-datepicker #picker></mat-datepicker>\n      </mat-form-field>\n    </mat-grid-tile>\n\n    <mat-grid-tile colspan=\"1\">\n      <mat-form-field>\n        <mat-select placeholder=\"Bill Category\" formControlName=\"billCategory\">\n          <mat-option *ngFor=\"let category of billCategories\" [value]=\"category.value\">\n            {{category.viewValue}}\n          </mat-option>\n        </mat-select>\n      </mat-form-field>\n    </mat-grid-tile>\n\n    <mat-grid-tile colspan=\"1\">\n      <mat-form-field>\n        <mat-select placeholder=\"Store Name\" formControlName=\"storeName\">\n          <mat-option *ngFor=\"let store of stores\" [value]=\"store.value\">\n            {{store.viewValue}}\n          </mat-option>\n        </mat-select>\n      </mat-form-field>\n    </mat-grid-tile>\n\n    <mat-grid-tile colspan=\"1\">\n      <mat-form-field>\n        <input matInput type=\"number\" placeholder=\"bill Amount\" formControlName=\"billAmount\" required>\n      </mat-form-field>\n    </mat-grid-tile>\n\n    <mat-grid-tile colspan=\"1\">\n      <mat-form-field>\n        <mat-select placeholder=\"Bill Paid By\" formControlName=\"PayMedium\">\n          <mat-option *ngFor=\"let medium of billMedium\" [value]=\"medium.value\">\n            {{medium.viewValue}}\n          </mat-option>\n        </mat-select>\n      </mat-form-field>\n    </mat-grid-tile>\n\n  </mat-grid-list>\n\n  <mat-grid-list cols=\"1\" rowHeight=\"55px\" gutterSize=\"10px\">\n    <mat-grid-tile colspan=\"1\">\n      <div class=\"example-button-row\">\n        <button mat-raised-button color=\"primary\" type=\"submit\" (click)=\"addBill()\">Save Bill</button>\n        <button mat-raised-button color=\"accent\" type=\"reset\">Clear</button>\n      </div>\n    </mat-grid-tile>\n  </mat-grid-list>\n\n</form>"
+module.exports = "<form [formGroup]=\"billForm\" novalidate class=\"mrgTop10\">\n  <mat-grid-list cols=\"4\" rowHeight=\"65px\" gutterSize=\"10px\">\n\n    <mat-grid-tile colspan=\"1\">\n      <mat-form-field>\n        <input matInput [matDatepicker]=\"picker\" placeholder=\"Bill Date\" formControlName=\"billDate\" autocomplete=\"off\">\n        <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\n        <mat-datepicker #picker></mat-datepicker>\n      </mat-form-field>\n    </mat-grid-tile>\n\n    <mat-grid-tile colspan=\"1\">\n      <mat-form-field>\n        <mat-select placeholder=\"Bill Category\" formControlName=\"billCategory\">\n          <mat-option *ngFor=\"let category of billCategories\" [value]=\"category.value\">\n            {{category.viewValue}}\n          </mat-option>\n        </mat-select>\n      </mat-form-field>\n    </mat-grid-tile>\n\n    <mat-grid-tile colspan=\"1\">\n      <mat-form-field>\n        <mat-select placeholder=\"Store Name\" formControlName=\"storeName\">\n          <mat-option *ngFor=\"let store of stores\" [value]=\"store.value\">\n            {{store.viewValue}}\n          </mat-option>\n        </mat-select>\n      </mat-form-field>\n    </mat-grid-tile>\n\n    <mat-grid-tile colspan=\"1\">\n      <mat-form-field>\n        <input matInput type=\"number\" placeholder=\"bill Amount\" formControlName=\"billAmount\" required>\n      </mat-form-field>\n    </mat-grid-tile>\n\n    <mat-grid-tile colspan=\"1\">\n      <mat-form-field>\n        <mat-select placeholder=\"Bill Paid By\" formControlName=\"payMedium\">\n          <mat-option *ngFor=\"let medium of billMedium\" [value]=\"medium.value\">\n            {{medium.viewValue}}\n          </mat-option>\n        </mat-select>\n      </mat-form-field>\n    </mat-grid-tile>\n\n  </mat-grid-list>\n\n  <mat-grid-list cols=\"1\" rowHeight=\"55px\" gutterSize=\"10px\">\n    <mat-grid-tile colspan=\"1\">\n      <div class=\"example-button-row\">\n        <button mat-raised-button color=\"primary\" type=\"submit\" (click)=\"addBill()\">Save Bill</button>\n        <button mat-raised-button color=\"accent\" type=\"reset\">Clear</button>\n      </div>\n    </mat-grid-tile>\n  </mat-grid-list>\n\n</form>\n\n<h3>List of bills already Added: </h3>\n<ol>\n  <li *ngFor=\"let bill of bills | async\">\n    billDate: {{bill.billDate}} <br />\n    billCategory: {{bill.billCategory}}<br />\n    storeName: {{bill.storeName}}<br />\n    billAmount: {{bill.billAmount}}<br />\n    payMedium: {{bill.payMedium}}<br />\n  </li>\n</ol>"
 
 /***/ }),
 
@@ -245,14 +245,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _shared_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../shared.service */ "./src/app/shared.service.ts");
+/* harmony import */ var _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/fire/firestore */ "./node_modules/@angular/fire/firestore/index.js");
+
 
 
 
 
 var BillComponent = /** @class */ (function () {
-    function BillComponent(fb, sharedService) {
+    function BillComponent(fb, sharedService, db) {
         this.fb = fb;
         this.sharedService = sharedService;
+        this.db = db;
         this.billMedium = [
             {
                 value: 'chase_cc',
@@ -299,6 +302,7 @@ var BillComponent = /** @class */ (function () {
                 viewValue: 'Walmart'
             },
         ];
+        this.bills = db.collection('bills').valueChanges();
     }
     BillComponent.prototype.ngOnInit = function () {
         this.createForm();
@@ -310,7 +314,7 @@ var BillComponent = /** @class */ (function () {
             billCategory: [null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
             storeName: [null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
             billAmount: [null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
-            PayMedium: [null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]
+            payMedium: [null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]
         });
     };
     BillComponent.prototype.addBill = function () {
@@ -323,7 +327,7 @@ var BillComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./bill.component.html */ "./src/app/bill/bill.component.html"),
             styles: [__webpack_require__(/*! ./bill.component.scss */ "./src/app/bill/bill.component.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"], _shared_service__WEBPACK_IMPORTED_MODULE_3__["SharedService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"], _shared_service__WEBPACK_IMPORTED_MODULE_3__["SharedService"], _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__["AngularFirestore"]])
     ], BillComponent);
     return BillComponent;
 }());
