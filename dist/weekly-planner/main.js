@@ -36,33 +36,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _page_not_found_page_not_found_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./page-not-found/page-not-found.component */ "./src/app/page-not-found/page-not-found.component.ts");
-/* harmony import */ var _bill_bill_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./bill/bill.component */ "./src/app/bill/bill.component.ts");
-/* harmony import */ var _store_store_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./store/store.component */ "./src/app/store/store.component.ts");
-
-
-
 
 
 
 var routes = [
-    {
-        path: 'store',
-        component: _store_store_component__WEBPACK_IMPORTED_MODULE_5__["StoreComponent"]
-    },
-    {
-        path: 'bill',
-        component: _bill_bill_component__WEBPACK_IMPORTED_MODULE_4__["BillComponent"]
-    },
-    {
-        path: '',
-        redirectTo: '/bill',
-        pathMatch: 'full'
-    },
-    {
-        path: '**',
-        component: _page_not_found_page_not_found_component__WEBPACK_IMPORTED_MODULE_3__["PageNotFoundComponent"]
-    }
+// {
+//   path: 'store',
+//   component: StoreComponent
+// },
+// {
+//   path: 'bill',
+//   component: BillComponent
+// },
+// {
+//   path: '',
+//   redirectTo: '/bill',
+//   pathMatch: 'full'
+// },
+// {
+//   path: '**',
+//   component: PageNotFoundComponent
+// }
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -87,7 +81,7 @@ var AppRoutingModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- <a href=\"javascript:void(0)\" rel=\"noopener noreferrer\" routerLink=\"/bill\">Add Bill</a>\n\n<a href=\"javascript:void(0)\" rel=\"noopener noreferrer\" routerLink=\"/store\">Add Store</a> -->\n<router-outlet></router-outlet>"
+module.exports = "<!-- <a href=\"javascript:void(0)\" rel=\"noopener noreferrer\" routerLink=\"/bill\">Add Bill</a>\n\n<a href=\"javascript:void(0)\" rel=\"noopener noreferrer\" routerLink=\"/store\">Add Store</a> -->\n<!-- <router-outlet></router-outlet> -->\n<app-bill></app-bill>"
 
 /***/ }),
 
@@ -218,7 +212,7 @@ var AppModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"mrg15\">\n  <p class=\"warn\">{{errorLog}}</p>\n  <form [formGroup]=\"billForm\" novalidate class=\"mrg15\" (ngSubmit)=\"addBill()\">\n    <mat-grid-list cols=\"1\" rowHeight=\"65px\" gutterSize=\"10px\">\n\n      <mat-grid-tile colspan=\"1\">\n        <mat-form-field class=\"width100\">\n          <input matInput [matDatepicker]=\"picker\" placeholder=\"Bill Date\" formControlName=\"billDate\" autocomplete=\"off\"\n            required>\n          <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\n          <mat-datepicker touchUi #picker></mat-datepicker>\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile colspan=\"1\">\n        <mat-form-field class=\"width100\">\n          <mat-select placeholder=\"Bill Category\" formControlName=\"billCategory\" required>\n            <mat-option *ngFor=\"let category of billCategories\" [value]=\"category.value\">\n              {{category.viewValue}}\n            </mat-option>\n          </mat-select>\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile colspan=\"1\">\n        <mat-form-field class=\"width100\">\n          <mat-select placeholder=\"Store Name\" formControlName=\"storeName\" required>\n            <mat-option *ngFor=\"let store of stores\" [value]=\"store.viewValue\">\n              {{store.viewValue}}\n            </mat-option>\n          </mat-select>\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile colspan=\"1\">\n        <mat-form-field class=\"width100\">\n          <input matInput type=\"number\" placeholder=\"bill Amount\" formControlName=\"billAmount\" required>\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile colspan=\"1\">\n        <mat-form-field class=\"width100\">\n          <mat-select placeholder=\"Bill Paid By\" formControlName=\"payMedium\" required>\n            <mat-option *ngFor=\"let medium of billMedium\" [value]=\"medium.viewValue\">\n              {{medium.viewValue}}\n            </mat-option>\n          </mat-select>\n        </mat-form-field>\n      </mat-grid-tile>\n\n    </mat-grid-list>\n\n    <mat-grid-list cols=\"1\" rowHeight=\"55px\" gutterSize=\"10px\">\n      <mat-grid-tile colspan=\"1\">\n        <div class=\"example-button-row\">\n          <button mat-raised-button color=\"primary\" type=\"submit\">Save Bill</button>\n          <button mat-raised-button color=\"accent\" type=\"reset\">Clear</button>\n        </div>\n      </mat-grid-tile>\n    </mat-grid-list>\n\n  </form>\n\n  <h3>List of bills already Added: </h3>\n\n  <table mat-table [dataSource]=\"bills\" class=\"width100\">\n    <ng-container matColumnDef=\"billDate\">\n      <th mat-header-cell *matHeaderCellDef> Bill Date </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.billDate | date : 'MM/dd/yyyy'}} </td>\n    </ng-container>\n    <ng-container matColumnDef=\"billCategory\">\n      <th mat-header-cell *matHeaderCellDef> Bill Category </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.billCategory}} </td>\n    </ng-container>\n    <ng-container matColumnDef=\"storeName\">\n      <th mat-header-cell *matHeaderCellDef> Store Name </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.storeName}} </td>\n    </ng-container>\n    <ng-container matColumnDef=\"billAmount\">\n      <th mat-header-cell *matHeaderCellDef> Bill Amount </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.billAmount}} </td>\n    </ng-container>\n    <ng-container matColumnDef=\"payMedium\">\n      <th mat-header-cell *matHeaderCellDef> Pay Medium </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.payMedium}} </td>\n    </ng-container>\n\n    <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n    <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\n  </table>\n</div>"
+module.exports = "<div class=\"mrg15\">\n  <!-- <p class=\"warn\">{{errorLog}}</p> -->\n  <form [formGroup]=\"billForm\" novalidate class=\"mrg15\" (ngSubmit)=\"addBill()\">\n    <mat-grid-list cols=\"1\" rowHeight=\"65px\" gutterSize=\"10px\">\n\n      <mat-grid-tile colspan=\"1\">\n        <mat-form-field class=\"width100\">\n          <input matInput [matDatepicker]=\"picker\" placeholder=\"Bill Date\" formControlName=\"billDate\" autocomplete=\"off\">\n          <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\n          <mat-datepicker touchUi #picker></mat-datepicker>\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile colspan=\"1\">\n        <mat-form-field class=\"width100\">\n          <mat-select placeholder=\"Bill Category\" formControlName=\"billCategory\" #billCat>\n            <mat-option *ngFor=\"let category of billCategories\" [value]=\"category.value\">\n              {{category.viewValue}}\n            </mat-option>\n          </mat-select>\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile colspan=\"1\" *ngIf=\"billCat.value ==='Custom'\">\n        <mat-form-field class=\"width100\">\n          <input matInput type=\"text\" placeholder=\"Custom Bill Category\" formControlName=\"billCategory\">\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile colspan=\"1\">\n        <mat-form-field class=\"width100\">\n          <mat-select placeholder=\"Store Name\" formControlName=\"storeName\" #store>\n            <mat-option *ngFor=\"let store of stores\" [value]=\"store.viewValue\">\n              {{store.viewValue}}\n            </mat-option>\n          </mat-select>\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile colspan=\"1\" *ngIf=\"store.value ==='Custom'\">\n        <mat-form-field class=\"width100\">\n          <input matInput type=\"text\" placeholder=\"Custom Store\" formControlName=\"storeName\">\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile colspan=\"1\">\n        <mat-form-field class=\"width100\">\n          <input matInput type=\"number\" placeholder=\"Bill Amount\" formControlName=\"billAmount\">\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile colspan=\"1\">\n        <mat-form-field class=\"width100\">\n          <mat-select placeholder=\"Bill Paid By\" formControlName=\"payMedium\">\n            <mat-option *ngFor=\"let medium of billMedium\" [value]=\"medium.viewValue\">\n              {{medium.viewValue}}\n            </mat-option>\n          </mat-select>\n        </mat-form-field>\n      </mat-grid-tile>\n\n    </mat-grid-list>\n\n    <mat-grid-list cols=\"1\" rowHeight=\"55px\" gutterSize=\"10px\">\n      <mat-grid-tile colspan=\"1\">\n        <div class=\"example-button-row\">\n          <button mat-raised-button color=\"primary\" type=\"submit\">Save Bill</button>\n          <button mat-raised-button color=\"accent\" type=\"reset\">Clear</button>\n        </div>\n      </mat-grid-tile>\n    </mat-grid-list>\n\n  </form>\n\n  <h3>List of bills Added: </h3>\n\n  <table mat-table [dataSource]=\"bills\" class=\"width100\">\n    <ng-container matColumnDef=\"billDate\">\n      <th mat-header-cell *matHeaderCellDef> Bill Date </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.billDate.toDate() | date : 'MM/dd/yyyy'}} </td>\n    </ng-container>\n    <ng-container matColumnDef=\"billCategory\">\n      <th mat-header-cell *matHeaderCellDef> Bill Category </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.billCategory}} </td>\n    </ng-container>\n    <ng-container matColumnDef=\"storeName\">\n      <th mat-header-cell *matHeaderCellDef> Store Name </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.storeName}} </td>\n    </ng-container>\n    <ng-container matColumnDef=\"billAmount\">\n      <th mat-header-cell *matHeaderCellDef> Bill Amount </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.billAmount}} </td>\n    </ng-container>\n    <ng-container matColumnDef=\"payMedium\">\n      <th mat-header-cell *matHeaderCellDef> Pay Medium </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.payMedium}} </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"action\">\n      <th mat-header-cell *matHeaderCellDef> Action </th>\n      <td mat-cell *matCellDef=\"let row\">\n        <button mat-icon-button (click)=\"deleteItem(row)\">\n          <mat-icon color=\"warn\">delete</mat-icon>\n        </button>\n      </td>\n    </ng-container>\n\n    <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n    <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\n  </table>\n</div>"
 
 /***/ }),
 
@@ -261,83 +255,154 @@ var BillComponent = /** @class */ (function () {
         this.sharedService = sharedService;
         this.db = db;
         this.datePipe = datePipe;
-        this.errorLog = null;
+        // errorLog: string = null;
+        this.dataPath = 'bills';
         this.billMedium = [
             {
-                value: 'chase_cc',
-                viewValue: 'Chase Credit Card'
-            },
-            {
-                value: 'discover_cc',
-                viewValue: 'Discover Credit Card'
-            },
-            {
-                value: 'bofa_cc',
+                value: 'Bank of America Credit Card',
                 viewValue: 'Bank of America Credit Card'
             },
             {
-                value: 'bofa_dc',
+                value: 'Bank Of America Checking Account',
+                viewValue: 'Bank Of America Checking Account'
+            },
+            {
+                value: 'Bank of America Debit Card',
                 viewValue: 'Bank of America Debit Card'
             },
             {
-                value: 'wells_dc',
+                value: 'Cash',
+                viewValue: 'Cash'
+            },
+            {
+                value: 'Chase Credit Card',
+                viewValue: 'Chase Credit Card'
+            },
+            {
+                value: 'Discover Credit Card',
+                viewValue: 'Discover Credit Card'
+            },
+            {
+                value: 'Wells Fargo Checking Account',
+                viewValue: 'Wells Fargo Checking Account'
+            },
+            {
+                value: 'Wells Fargo Debit Card',
                 viewValue: 'Wells Fargo Debit Card'
             }
         ];
         this.billCategories = [
             {
-                value: 'grocery',
+                value: 'Grocery',
                 viewValue: 'Grocery'
             },
             {
-                value: 'gas',
+                value: 'Gas',
                 viewValue: 'Gas'
             },
             {
-                value: 'other',
-                viewValue: 'other'
+                value: 'Electricity Bill',
+                viewValue: 'Electricity Bill'
             },
+            {
+                value: 'Utilities Bill',
+                viewValue: 'Utilities Bill'
+            },
+            {
+                value: 'Rent',
+                viewValue: 'Rent'
+            },
+            {
+                value: 'Car Insurance',
+                viewValue: 'Car Insurance'
+            },
+            {
+                value: 'Lycamobile Bill',
+                viewValue: 'Lycamobile Bill'
+            },
+            {
+                value: 'Netflix',
+                viewValue: 'Netflix'
+            },
+            {
+                value: 'Kodi',
+                viewValue: 'Kodi'
+            },
+            {
+                value: 'Ymca Bill',
+                viewValue: 'Ymca Bill'
+            },
+            {
+                value: 'Custom',
+                viewValue: 'Custom'
+            }
         ];
         this.stores = [
             {
-                value: 'patel',
+                value: 'Patel Brother',
                 viewValue: 'Patel Brother'
             },
             {
-                value: 'walmart',
+                value: 'Walmart',
                 viewValue: 'Walmart'
             },
+            {
+                value: 'Dollar Tree',
+                viewValue: 'Dollar Tree'
+            },
+            {
+                value: 'Gabes',
+                viewValue: 'Gabes'
+            },
+            {
+                value: 'Around The World',
+                viewValue: 'Around The World'
+            },
+            {
+                value: 'Target',
+                viewValue: 'Target'
+            },
+            {
+                value: 'Custom',
+                viewValue: 'Custom'
+            }
         ];
-        this.displayedColumns = ['billDate', 'billCategory', 'storeName', 'billAmount', 'payMedium'];
-        this.bills = db.collection('bills').valueChanges();
+        this.displayedColumns = ['billDate', 'billCategory', 'storeName', 'billAmount', 'payMedium', 'action'];
+        this.bills = db.collection(this.dataPath).valueChanges();
     }
     BillComponent.prototype.ngOnInit = function () {
         this.createForm();
     };
     BillComponent.prototype.createForm = function () {
         this.billForm = this.fb.group({
-            billDate: [new Date(), _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
-            billCategory: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
-            storeName: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
-            billAmount: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
-            payMedium: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]
+            billId: null,
+            billDate: new Date(),
+            billCategory: null,
+            storeName: null,
+            billAmount: null,
+            payMedium: null
         });
     };
     BillComponent.prototype.addBill = function () {
-        this.errorLog = null;
-        console.log(this.billForm.value);
-        // const requestData = this.billForm.value;
-        if (this.billForm.valid) {
-            var tempDate = this.billForm.controls.billDate.value;
-            this.billForm.controls.billDate.setValue(this.datePipe.transform(tempDate, 'MM/dd/yyyy'));
-            this.sharedService.addBill(this.billForm.value);
-            // this.billForm.reset();
-            this.createForm();
-        }
-        else {
-            this.errorLog = 'Please fill all required fields.';
-        }
-        // this.billForm.updateValueAndValidity();
+        // this.errorLog = null;
+        // console.log(this.billForm.value);
+        // if (this.billForm.valid) {
+        // const tempDate = this.billForm.controls.billDate.value;
+        // this.billForm.controls.billDate.setValue(this.datePipe.transform(tempDate, 'MM/dd/yyyy'));
+        var _this = this;
+        this.db.collection(this.dataPath).get().toPromise().then(function (data) {
+            _this.billForm.controls.billId.setValue(data.size);
+            _this.sharedService.addBill(_this.billForm.value);
+            _this.createForm();
+        });
+        // this.sharedService.addBill(this.billForm.value);
+        // this.createForm();
+        // } else {
+        //   this.errorLog = 'Please fill all required fields.';
+        // }
+    };
+    BillComponent.prototype.deleteItem = function (selectedRow) {
+        console.log(selectedRow);
     };
     BillComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -390,7 +455,8 @@ var ImportMaterialModuleModule = /** @class */ (function () {
                 _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatNativeDateModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatSelectModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatGridListModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatTableModule"]
+                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatTableModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatIconModule"]
             ],
             exports: [
                 _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatFormFieldModule"],
@@ -400,7 +466,8 @@ var ImportMaterialModuleModule = /** @class */ (function () {
                 _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatNativeDateModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatSelectModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatGridListModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatTableModule"]
+                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatTableModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatIconModule"]
             ]
         })
     ], ImportMaterialModuleModule);
