@@ -218,7 +218,7 @@ var AppModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"mrg15\">\n  <form [formGroup]=\"billForm\" novalidate class=\"mrg15\">\n    <mat-grid-list cols=\"1\" rowHeight=\"65px\" gutterSize=\"10px\">\n\n      <mat-grid-tile colspan=\"1\">\n        <mat-form-field class=\"width100\">\n          <input matInput [matDatepicker]=\"picker\" placeholder=\"Bill Date\" formControlName=\"billDate\" autocomplete=\"off\"\n            required>\n          <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\n          <mat-datepicker touchUi #picker></mat-datepicker>\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile colspan=\"1\">\n        <mat-form-field class=\"width100\">\n          <mat-select placeholder=\"Bill Category\" formControlName=\"billCategory\" required>\n            <mat-option *ngFor=\"let category of billCategories\" [value]=\"category.value\">\n              {{category.viewValue}}\n            </mat-option>\n          </mat-select>\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile colspan=\"1\">\n        <mat-form-field class=\"width100\">\n          <mat-select placeholder=\"Store Name\" formControlName=\"storeName\" required>\n            <mat-option *ngFor=\"let store of stores\" [value]=\"store.viewValue\">\n              {{store.viewValue}}\n            </mat-option>\n          </mat-select>\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile colspan=\"1\">\n        <mat-form-field class=\"width100\">\n          <input matInput type=\"number\" placeholder=\"bill Amount\" formControlName=\"billAmount\" required>\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile colspan=\"1\">\n        <mat-form-field class=\"width100\">\n          <mat-select placeholder=\"Bill Paid By\" formControlName=\"payMedium\" required>\n            <mat-option *ngFor=\"let medium of billMedium\" [value]=\"medium.viewValue\">\n              {{medium.viewValue}}\n            </mat-option>\n          </mat-select>\n        </mat-form-field>\n      </mat-grid-tile>\n\n    </mat-grid-list>\n\n    <mat-grid-list cols=\"1\" rowHeight=\"55px\" gutterSize=\"10px\">\n      <mat-grid-tile colspan=\"1\">\n        <div class=\"example-button-row\">\n          <button mat-raised-button color=\"primary\" type=\"button\" (click)=\"addBill()\">Save Bill</button>\n          <button mat-raised-button color=\"accent\" type=\"reset\">Clear</button>\n        </div>\n      </mat-grid-tile>\n    </mat-grid-list>\n\n  </form>\n\n  <h3>List of bills already Added: </h3>\n\n  <table mat-table [dataSource]=\"bills\" class=\"width100\">\n    <ng-container matColumnDef=\"billDate\">\n      <th mat-header-cell *matHeaderCellDef> Bill Date </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.billDate.toDate() | date : 'MM/dd/yyyy'}} </td>\n    </ng-container>\n    <ng-container matColumnDef=\"billCategory\">\n      <th mat-header-cell *matHeaderCellDef> billCategory </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.billCategory}} </td>\n    </ng-container>\n    <ng-container matColumnDef=\"storeName\">\n      <th mat-header-cell *matHeaderCellDef> storeName </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.storeName}} </td>\n    </ng-container>\n    <ng-container matColumnDef=\"billAmount\">\n      <th mat-header-cell *matHeaderCellDef> billAmount </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.billAmount}} </td>\n    </ng-container>\n    <ng-container matColumnDef=\"payMedium\">\n      <th mat-header-cell *matHeaderCellDef> payMedium </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.payMedium}} </td>\n    </ng-container>\n\n    <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n    <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\n  </table>\n</div>"
+module.exports = "<div class=\"mrg15\">\n  <p class=\"warn\">{{errorLog}}</p>\n  <form [formGroup]=\"billForm\" novalidate class=\"mrg15\" (ngSubmit)=\"addBill()\">\n    <mat-grid-list cols=\"1\" rowHeight=\"65px\" gutterSize=\"10px\">\n\n      <mat-grid-tile colspan=\"1\">\n        <mat-form-field class=\"width100\">\n          <input matInput [matDatepicker]=\"picker\" placeholder=\"Bill Date\" formControlName=\"billDate\" autocomplete=\"off\"\n            required>\n          <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\n          <mat-datepicker touchUi #picker></mat-datepicker>\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile colspan=\"1\">\n        <mat-form-field class=\"width100\">\n          <mat-select placeholder=\"Bill Category\" formControlName=\"billCategory\" required>\n            <mat-option *ngFor=\"let category of billCategories\" [value]=\"category.value\">\n              {{category.viewValue}}\n            </mat-option>\n          </mat-select>\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile colspan=\"1\">\n        <mat-form-field class=\"width100\">\n          <mat-select placeholder=\"Store Name\" formControlName=\"storeName\" required>\n            <mat-option *ngFor=\"let store of stores\" [value]=\"store.viewValue\">\n              {{store.viewValue}}\n            </mat-option>\n          </mat-select>\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile colspan=\"1\">\n        <mat-form-field class=\"width100\">\n          <input matInput type=\"number\" placeholder=\"bill Amount\" formControlName=\"billAmount\" required>\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile colspan=\"1\">\n        <mat-form-field class=\"width100\">\n          <mat-select placeholder=\"Bill Paid By\" formControlName=\"payMedium\" required>\n            <mat-option *ngFor=\"let medium of billMedium\" [value]=\"medium.viewValue\">\n              {{medium.viewValue}}\n            </mat-option>\n          </mat-select>\n        </mat-form-field>\n      </mat-grid-tile>\n\n    </mat-grid-list>\n\n    <mat-grid-list cols=\"1\" rowHeight=\"55px\" gutterSize=\"10px\">\n      <mat-grid-tile colspan=\"1\">\n        <div class=\"example-button-row\">\n          <button mat-raised-button color=\"primary\" type=\"submit\">Save Bill</button>\n          <button mat-raised-button color=\"accent\" type=\"reset\">Clear</button>\n        </div>\n      </mat-grid-tile>\n    </mat-grid-list>\n\n  </form>\n\n  <h3>List of bills already Added: </h3>\n\n  <table mat-table [dataSource]=\"bills\" class=\"width100\">\n    <ng-container matColumnDef=\"billDate\">\n      <th mat-header-cell *matHeaderCellDef> Bill Date </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.billDate | date : 'MM/dd/yyyy'}} </td>\n    </ng-container>\n    <ng-container matColumnDef=\"billCategory\">\n      <th mat-header-cell *matHeaderCellDef> Bill Category </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.billCategory}} </td>\n    </ng-container>\n    <ng-container matColumnDef=\"storeName\">\n      <th mat-header-cell *matHeaderCellDef> Store Name </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.storeName}} </td>\n    </ng-container>\n    <ng-container matColumnDef=\"billAmount\">\n      <th mat-header-cell *matHeaderCellDef> Bill Amount </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.billAmount}} </td>\n    </ng-container>\n    <ng-container matColumnDef=\"payMedium\">\n      <th mat-header-cell *matHeaderCellDef> Pay Medium </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.payMedium}} </td>\n    </ng-container>\n\n    <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n    <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\n  </table>\n</div>"
 
 /***/ }),
 
@@ -229,7 +229,7 @@ module.exports = "<div class=\"mrg15\">\n  <form [formGroup]=\"billForm\" novali
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".example-button-row button {\n  margin-right: 8px; }\n\n.mrg15 {\n  margin: 15px; }\n\n.width100 {\n  width: 100% !important; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYmlsbC9EOlxcZ2l0aHViLXJlcG9zXFx3ZWVrbHktcGxhbm5lci9zcmNcXGFwcFxcYmlsbFxcYmlsbC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGlCQUFpQixFQUFBOztBQUVuQjtFQUNFLFlBQVcsRUFBQTs7QUFFYjtFQUNFLHNCQUFzQixFQUFBIiwiZmlsZSI6InNyYy9hcHAvYmlsbC9iaWxsLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmV4YW1wbGUtYnV0dG9uLXJvdyBidXR0b257XHJcbiAgbWFyZ2luLXJpZ2h0OiA4cHg7XHJcbn1cclxuLm1yZzE1e1xyXG4gIG1hcmdpbjoxNXB4O1xyXG59XHJcbi53aWR0aDEwMHtcclxuICB3aWR0aDogMTAwJSAhaW1wb3J0YW50O1xyXG59Il19 */"
+module.exports = ".example-button-row button {\n  margin-right: 8px; }\n\n.mrg15 {\n  margin: 15px; }\n\n.width100 {\n  width: 100% !important; }\n\n.warn {\n  color: red; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYmlsbC9EOlxcZ2l0aHViLXJlcG9zXFx3ZWVrbHktcGxhbm5lci9zcmNcXGFwcFxcYmlsbFxcYmlsbC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGlCQUFpQixFQUFBOztBQUVuQjtFQUNFLFlBQVcsRUFBQTs7QUFFYjtFQUNFLHNCQUFzQixFQUFBOztBQUV4QjtFQUNFLFVBQVMsRUFBQSIsImZpbGUiOiJzcmMvYXBwL2JpbGwvYmlsbC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5leGFtcGxlLWJ1dHRvbi1yb3cgYnV0dG9ue1xyXG4gIG1hcmdpbi1yaWdodDogOHB4O1xyXG59XHJcbi5tcmcxNXtcclxuICBtYXJnaW46MTVweDtcclxufVxyXG4ud2lkdGgxMDB7XHJcbiAgd2lkdGg6IDEwMCUgIWltcG9ydGFudDtcclxufVxyXG4ud2FybntcclxuICBjb2xvcjpyZWQ7XHJcbn0iXX0= */"
 
 /***/ }),
 
@@ -261,6 +261,7 @@ var BillComponent = /** @class */ (function () {
         this.sharedService = sharedService;
         this.db = db;
         this.datePipe = datePipe;
+        this.errorLog = null;
         this.billMedium = [
             {
                 value: 'chase_cc',
@@ -316,21 +317,27 @@ var BillComponent = /** @class */ (function () {
     BillComponent.prototype.createForm = function () {
         this.billForm = this.fb.group({
             billDate: [new Date(), _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
-            // billName: [null, Validators.required],
-            billCategory: [null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
-            storeName: [null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
-            billAmount: [null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
-            payMedium: [null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]
+            billCategory: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            storeName: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            billAmount: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            payMedium: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]
         });
     };
     BillComponent.prototype.addBill = function () {
+        this.errorLog = null;
         console.log(this.billForm.value);
-        // const tempDate = this.billForm.controls.billDate.value;
-        // this.billForm.controls.billDate.setValue(this.datePipe.transform(tempDate, 'MM/dd/yyyy'));
-        this.sharedService.addBill(this.billForm.value);
-        this.billForm.reset();
+        // const requestData = this.billForm.value;
+        if (this.billForm.valid) {
+            var tempDate = this.billForm.controls.billDate.value;
+            this.billForm.controls.billDate.setValue(this.datePipe.transform(tempDate, 'MM/dd/yyyy'));
+            this.sharedService.addBill(this.billForm.value);
+            // this.billForm.reset();
+            this.createForm();
+        }
+        else {
+            this.errorLog = 'Please fill all required fields.';
+        }
         // this.billForm.updateValueAndValidity();
-        this.createForm();
     };
     BillComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
