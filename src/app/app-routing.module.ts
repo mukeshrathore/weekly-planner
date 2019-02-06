@@ -5,23 +5,23 @@ import { BillComponent } from './bill/bill.component';
 import { StoreComponent } from './store/store.component';
 
 const routes: Routes = [
-  {
-    path: 'store',
-    component: StoreComponent
-  },
-  {
-    path: 'bill',
-    component: BillComponent
-  },
-  {
-    path: '',
-    redirectTo: '/bill',
-    pathMatch: 'full'
-  },
-  {
-    path: '**',
-    component: PageNotFoundComponent
-  }
+  // {
+  //   path: 'store',
+  //   component: StoreComponent
+  // },
+  // {
+  //   path: 'bill',
+  //   component: BillComponent
+  // },
+  // {
+  //   path: '',
+  //   redirectTo: '/bill',
+  //   pathMatch: 'full'
+  // },
+  // {
+  //   path: '**',
+  //   component: PageNotFoundComponent
+  // }
 ];
 
 @NgModule({

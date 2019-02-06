@@ -1,12 +1,11 @@
 <div class="mrg15">
-  <p class="warn">{{errorLog}}</p>
+  <!-- <p class="warn">{{errorLog}}</p> -->
   <form [formGroup]="billForm" novalidate class="mrg15" (ngSubmit)="addBill()">
     <mat-grid-list cols="1" rowHeight="65px" gutterSize="10px">
 
       <mat-grid-tile colspan="1">
         <mat-form-field class="width100">
-          <input matInput [matDatepicker]="picker" placeholder="Bill Date" formControlName="billDate" autocomplete="off"
-            required>
+          <input matInput [matDatepicker]="picker" placeholder="Bill Date" formControlName="billDate" autocomplete="off">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker touchUi #picker></mat-datepicker>
         </mat-form-field>
@@ -14,7 +13,7 @@
 
       <mat-grid-tile colspan="1">
         <mat-form-field class="width100">
-          <mat-select placeholder="Bill Category" formControlName="billCategory" required>
+          <mat-select placeholder="Bill Category" formControlName="billCategory" #billCat>
             <mat-option *ngFor="let category of billCategories" [value]="category.value">
               {{category.viewValue}}
             </mat-option>
@@ -22,9 +21,15 @@
         </mat-form-field>
       </mat-grid-tile>
 
+      <mat-grid-tile colspan="1" *ngIf="billCat.value ==='Custom'">
+        <mat-form-field class="width100">
+          <input matInput type="text" placeholder="Custom Bill Category" formControlName="billCategory">
+        </mat-form-field>
+      </mat-grid-tile>
+
       <mat-grid-tile colspan="1">
         <mat-form-field class="width100">
-          <mat-select placeholder="Store Name" formControlName="storeName" required>
+          <mat-select placeholder="Store Name" formControlName="storeName" #store>
             <mat-option *ngFor="let store of stores" [value]="store.viewValue">
               {{store.viewValue}}
             </mat-option>
@@ -32,15 +37,21 @@
         </mat-form-field>
       </mat-grid-tile>
 
-      <mat-grid-tile colspan="1">
+      <mat-grid-tile colspan="1" *ngIf="store.value ==='Custom'">
         <mat-form-field class="width100">
-          <input matInput type="number" placeholder="bill Amount" formControlName="billAmount" required>
+          <input matInput type="text" placeholder="Custom Store" formControlName="storeName">
         </mat-form-field>
       </mat-grid-tile>
 
       <mat-grid-tile colspan="1">
         <mat-form-field class="width100">
-          <mat-select placeholder="Bill Paid By" formControlName="payMedium" required>
+          <input matInput type="number" placeholder="Bill Amount" formControlName="billAmount">
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile colspan="1">
+        <mat-form-field class="width100">
+          <mat-select placeholder="Bill Paid By" formControlName="payMedium">
             <mat-option *ngFor="let medium of billMedium" [value]="medium.viewValue">
               {{medium.viewValue}}
             </mat-option>
@@ -61,12 +72,12 @@
 
   </form>
 
-  <h3>List of bills already Added: </h3>
+  <h3>List of bills Added: </h3>
 
   <table mat-table [dataSource]="bills" class="width100">
     <ng-container matColumnDef="billDate">
       <th mat-header-cell *matHeaderCellDef> Bill Date </th>
-      <td mat-cell *matCellDef="let element"> {{element.billDate | date : 'MM/dd/yyyy'}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.billDate.toDate() | date : 'MM/dd/yyyy'}} </td>
     </ng-container>
     <ng-container matColumnDef="billCategory">
       <th mat-header-cell *matHeaderCellDef> Bill Category </th>
@@ -83,6 +94,15 @@
     <ng-container matColumnDef="payMedium">
       <th mat-header-cell *matHeaderCellDef> Pay Medium </th>
       <td mat-cell *matCellDef="let element"> {{element.payMedium}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef> Action </th>
+      <td mat-cell *matCellDef="let row">
+        <button mat-icon-button (click)="deleteItem(row)">
+          <mat-icon color="warn">delete</mat-icon>
+        </button>
+      </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
