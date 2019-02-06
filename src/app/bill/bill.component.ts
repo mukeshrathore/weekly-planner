@@ -82,7 +82,6 @@ export class BillComponent implements OnInit {
   createForm() {
     this.billForm = this.fb.group({
       billDate: [new Date(), Validators.required],
-      // billName: [null, Validators.required],
       billCategory: ['', Validators.required],
       storeName: ['', Validators.required],
       billAmount: ['', Validators.required],
@@ -93,12 +92,13 @@ export class BillComponent implements OnInit {
   addBill() {
     this.errorLog = null;
     console.log(this.billForm.value);
-    // const tempDate = this.billForm.controls.billDate.value;
-    // this.billForm.controls.billDate.setValue(this.datePipe.transform(tempDate, 'MM/dd/yyyy'));
+
     // const requestData = this.billForm.value;
     if (this.billForm.valid) {
+      const tempDate = this.billForm.controls.billDate.value;
+      this.billForm.controls.billDate.setValue(this.datePipe.transform(tempDate, 'MM/dd/yyyy'));
       this.sharedService.addBill(this.billForm.value);
-      this.billForm.reset();
+      // this.billForm.reset();
       this.createForm();
     } else {
       this.errorLog = 'Please fill all required fields.';

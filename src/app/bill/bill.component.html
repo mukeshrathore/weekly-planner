@@ -1,6 +1,6 @@
 <div class="mrg15">
-  <p color="warn">{{errorLog}}</p>
-  <form [formGroup]="billForm" novalidate class="mrg15">
+  <p class="warn">{{errorLog}}</p>
+  <form [formGroup]="billForm" novalidate class="mrg15" (ngSubmit)="addBill()">
     <mat-grid-list cols="1" rowHeight="65px" gutterSize="10px">
 
       <mat-grid-tile colspan="1">
@@ -53,7 +53,7 @@
     <mat-grid-list cols="1" rowHeight="55px" gutterSize="10px">
       <mat-grid-tile colspan="1">
         <div class="example-button-row">
-          <button mat-raised-button color="primary" (submit)="addBill()">Save Bill</button>
+          <button mat-raised-button color="primary" type="submit">Save Bill</button>
           <button mat-raised-button color="accent" type="reset">Clear</button>
         </div>
       </mat-grid-tile>
@@ -66,22 +66,22 @@
   <table mat-table [dataSource]="bills" class="width100">
     <ng-container matColumnDef="billDate">
       <th mat-header-cell *matHeaderCellDef> Bill Date </th>
-      <td mat-cell *matCellDef="let element"> {{element.billDate.toDate() | date : 'MM/dd/yyyy'}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.billDate | date : 'MM/dd/yyyy'}} </td>
     </ng-container>
     <ng-container matColumnDef="billCategory">
-      <th mat-header-cell *matHeaderCellDef> billCategory </th>
+      <th mat-header-cell *matHeaderCellDef> Bill Category </th>
       <td mat-cell *matCellDef="let element"> {{element.billCategory}} </td>
     </ng-container>
     <ng-container matColumnDef="storeName">
-      <th mat-header-cell *matHeaderCellDef> storeName </th>
+      <th mat-header-cell *matHeaderCellDef> Store Name </th>
       <td mat-cell *matCellDef="let element"> {{element.storeName}} </td>
     </ng-container>
     <ng-container matColumnDef="billAmount">
-      <th mat-header-cell *matHeaderCellDef> billAmount </th>
+      <th mat-header-cell *matHeaderCellDef> Bill Amount </th>
       <td mat-cell *matCellDef="let element"> {{element.billAmount}} </td>
     </ng-container>
     <ng-container matColumnDef="payMedium">
-      <th mat-header-cell *matHeaderCellDef> payMedium </th>
+      <th mat-header-cell *matHeaderCellDef> Pay Medium </th>
       <td mat-cell *matCellDef="let element"> {{element.payMedium}} </td>
     </ng-container>
 
