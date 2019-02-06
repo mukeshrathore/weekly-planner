@@ -14,6 +14,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { ReactiveFormsModule } from '@angular/forms';
 import { StoreComponent } from './store/store.component';
 import { ImportMaterialModuleModule } from './import-material-module.module';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,7 @@ import { ImportMaterialModuleModule } from './import-material-module.module';
     ReactiveFormsModule,
     ImportMaterialModuleModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

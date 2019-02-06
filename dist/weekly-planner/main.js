@@ -160,6 +160,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _store_store_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./store/store.component */ "./src/app/store/store.component.ts");
 /* harmony import */ var _import_material_module_module__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./import-material-module.module */ "./src/app/import-material-module.module.ts");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+
 
 
 
@@ -198,7 +200,7 @@ var AppModule = /** @class */ (function () {
                 _angular_forms__WEBPACK_IMPORTED_MODULE_13__["ReactiveFormsModule"],
                 _import_material_module_module__WEBPACK_IMPORTED_MODULE_15__["ImportMaterialModuleModule"]
             ],
-            providers: [],
+            providers: [_angular_common__WEBPACK_IMPORTED_MODULE_16__["DatePipe"]],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"]]
         })
     ], AppModule);
@@ -216,7 +218,7 @@ var AppModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"mrg15\">\n  <form [formGroup]=\"billForm\" novalidate class=\"mrg15\">\n    <mat-grid-list cols=\"1\" rowHeight=\"65px\" gutterSize=\"10px\">\n\n      <mat-grid-tile colspan=\"1\">\n        <mat-form-field class=\"width100\">\n          <input matInput [matDatepicker]=\"picker\" placeholder=\"Bill Date\" formControlName=\"billDate\" autocomplete=\"off\">\n          <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\n          <mat-datepicker touchUi #picker></mat-datepicker>\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile colspan=\"1\">\n        <mat-form-field class=\"width100\">\n          <mat-select placeholder=\"Bill Category\" formControlName=\"billCategory\">\n            <mat-option *ngFor=\"let category of billCategories\" [value]=\"category.value\">\n              {{category.viewValue}}\n            </mat-option>\n          </mat-select>\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile colspan=\"1\">\n        <mat-form-field class=\"width100\">\n          <mat-select placeholder=\"Store Name\" formControlName=\"storeName\">\n            <mat-option *ngFor=\"let store of stores\" [value]=\"store.value\">\n              {{store.viewValue}}\n            </mat-option>\n          </mat-select>\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile colspan=\"1\">\n        <mat-form-field class=\"width100\">\n          <input matInput type=\"number\" placeholder=\"bill Amount\" formControlName=\"billAmount\" required>\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile colspan=\"1\">\n        <mat-form-field class=\"width100\">\n          <mat-select placeholder=\"Bill Paid By\" formControlName=\"payMedium\">\n            <mat-option *ngFor=\"let medium of billMedium\" [value]=\"medium.value\">\n              {{medium.viewValue}}\n            </mat-option>\n          </mat-select>\n        </mat-form-field>\n      </mat-grid-tile>\n\n    </mat-grid-list>\n\n    <mat-grid-list cols=\"1\" rowHeight=\"55px\" gutterSize=\"10px\">\n      <mat-grid-tile colspan=\"1\">\n        <div class=\"example-button-row\">\n          <button mat-raised-button color=\"primary\" type=\"submit\" (click)=\"addBill()\">Save Bill</button>\n          <button mat-raised-button color=\"accent\" type=\"reset\">Clear</button>\n        </div>\n      </mat-grid-tile>\n    </mat-grid-list>\n\n  </form>\n\n  <h3>List of bills already Added: </h3>\n  <ol>\n    <li *ngFor=\"let bill of bills | async\">\n      billDate: {{bill.billDate}} <br />\n      billCategory: {{bill.billCategory}}<br />\n      storeName: {{bill.storeName}}<br />\n      billAmount: {{bill.billAmount}}<br />\n      payMedium: {{bill.payMedium}}<br />\n    </li>\n  </ol>\n</div>"
+module.exports = "<div class=\"mrg15\">\n  <form [formGroup]=\"billForm\" novalidate class=\"mrg15\">\n    <mat-grid-list cols=\"1\" rowHeight=\"65px\" gutterSize=\"10px\">\n\n      <mat-grid-tile colspan=\"1\">\n        <mat-form-field class=\"width100\">\n          <input matInput [matDatepicker]=\"picker\" placeholder=\"Bill Date\" formControlName=\"billDate\" autocomplete=\"off\"\n            required>\n          <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\n          <mat-datepicker touchUi #picker></mat-datepicker>\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile colspan=\"1\">\n        <mat-form-field class=\"width100\">\n          <mat-select placeholder=\"Bill Category\" formControlName=\"billCategory\" required>\n            <mat-option *ngFor=\"let category of billCategories\" [value]=\"category.value\">\n              {{category.viewValue}}\n            </mat-option>\n          </mat-select>\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile colspan=\"1\">\n        <mat-form-field class=\"width100\">\n          <mat-select placeholder=\"Store Name\" formControlName=\"storeName\" required>\n            <mat-option *ngFor=\"let store of stores\" [value]=\"store.viewValue\">\n              {{store.viewValue}}\n            </mat-option>\n          </mat-select>\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile colspan=\"1\">\n        <mat-form-field class=\"width100\">\n          <input matInput type=\"number\" placeholder=\"bill Amount\" formControlName=\"billAmount\" required>\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile colspan=\"1\">\n        <mat-form-field class=\"width100\">\n          <mat-select placeholder=\"Bill Paid By\" formControlName=\"payMedium\" required>\n            <mat-option *ngFor=\"let medium of billMedium\" [value]=\"medium.viewValue\">\n              {{medium.viewValue}}\n            </mat-option>\n          </mat-select>\n        </mat-form-field>\n      </mat-grid-tile>\n\n    </mat-grid-list>\n\n    <mat-grid-list cols=\"1\" rowHeight=\"55px\" gutterSize=\"10px\">\n      <mat-grid-tile colspan=\"1\">\n        <div class=\"example-button-row\">\n          <button mat-raised-button color=\"primary\" type=\"button\" (click)=\"addBill()\">Save Bill</button>\n          <button mat-raised-button color=\"accent\" type=\"reset\">Clear</button>\n        </div>\n      </mat-grid-tile>\n    </mat-grid-list>\n\n  </form>\n\n  <h3>List of bills already Added: </h3>\n\n  <table mat-table [dataSource]=\"bills\" class=\"width100\">\n    <ng-container matColumnDef=\"billDate\">\n      <th mat-header-cell *matHeaderCellDef> Bill Date </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.billDate.toDate() | date : 'MM/dd/yyyy'}} </td>\n    </ng-container>\n    <ng-container matColumnDef=\"billCategory\">\n      <th mat-header-cell *matHeaderCellDef> billCategory </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.billCategory}} </td>\n    </ng-container>\n    <ng-container matColumnDef=\"storeName\">\n      <th mat-header-cell *matHeaderCellDef> storeName </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.storeName}} </td>\n    </ng-container>\n    <ng-container matColumnDef=\"billAmount\">\n      <th mat-header-cell *matHeaderCellDef> billAmount </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.billAmount}} </td>\n    </ng-container>\n    <ng-container matColumnDef=\"payMedium\">\n      <th mat-header-cell *matHeaderCellDef> payMedium </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.payMedium}} </td>\n    </ng-container>\n\n    <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n    <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\n  </table>\n</div>"
 
 /***/ }),
 
@@ -246,16 +248,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _shared_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../shared.service */ "./src/app/shared.service.ts");
 /* harmony import */ var _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/fire/firestore */ "./node_modules/@angular/fire/firestore/index.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+
 
 
 
 
 
 var BillComponent = /** @class */ (function () {
-    function BillComponent(fb, sharedService, db) {
+    function BillComponent(fb, sharedService, db, datePipe) {
         this.fb = fb;
         this.sharedService = sharedService;
         this.db = db;
+        this.datePipe = datePipe;
         this.billMedium = [
             {
                 value: 'chase_cc',
@@ -302,6 +307,7 @@ var BillComponent = /** @class */ (function () {
                 viewValue: 'Walmart'
             },
         ];
+        this.displayedColumns = ['billDate', 'billCategory', 'storeName', 'billAmount', 'payMedium'];
         this.bills = db.collection('bills').valueChanges();
     }
     BillComponent.prototype.ngOnInit = function () {
@@ -319,8 +325,12 @@ var BillComponent = /** @class */ (function () {
     };
     BillComponent.prototype.addBill = function () {
         console.log(this.billForm.value);
+        // const tempDate = this.billForm.controls.billDate.value;
+        // this.billForm.controls.billDate.setValue(this.datePipe.transform(tempDate, 'MM/dd/yyyy'));
         this.sharedService.addBill(this.billForm.value);
         this.billForm.reset();
+        // this.billForm.updateValueAndValidity();
+        this.createForm();
     };
     BillComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -328,7 +338,10 @@ var BillComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./bill.component.html */ "./src/app/bill/bill.component.html"),
             styles: [__webpack_require__(/*! ./bill.component.scss */ "./src/app/bill/bill.component.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"], _shared_service__WEBPACK_IMPORTED_MODULE_3__["SharedService"], _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__["AngularFirestore"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"],
+            _shared_service__WEBPACK_IMPORTED_MODULE_3__["SharedService"],
+            _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__["AngularFirestore"],
+            _angular_common__WEBPACK_IMPORTED_MODULE_5__["DatePipe"]])
     ], BillComponent);
     return BillComponent;
 }());
@@ -369,7 +382,8 @@ var ImportMaterialModuleModule = /** @class */ (function () {
                 _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDatepickerModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatNativeDateModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatSelectModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatGridListModule"]
+                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatGridListModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatTableModule"]
             ],
             exports: [
                 _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatFormFieldModule"],
@@ -378,7 +392,8 @@ var ImportMaterialModuleModule = /** @class */ (function () {
                 _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDatepickerModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatNativeDateModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatSelectModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatGridListModule"]
+                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatGridListModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatTableModule"]
             ]
         })
     ], ImportMaterialModuleModule);
