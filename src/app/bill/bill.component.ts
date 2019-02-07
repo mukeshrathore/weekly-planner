@@ -187,12 +187,12 @@ export class BillComponent implements OnInit {
    * TO DO :
    * 1. Download csv file
    * 2. upload csv file 
-   * 3. delete item
+   * 3. delete item == done
    * 4. edit item
    * 5. add Bill in dialog
    * 6. sorting datatable based on Purchase date
    * 7. show total
    * 8. show month wise datatable with custom pagination
-   * 9. add bill id
+   * 9. add bill id ==done
    */
 }
