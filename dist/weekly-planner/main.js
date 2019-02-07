@@ -242,7 +242,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _shared_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../shared.service */ "./src/app/shared.service.ts");
 /* harmony import */ var _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/fire/firestore */ "./node_modules/@angular/fire/firestore/index.js");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
 
 
 
@@ -250,13 +250,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var BillComponent = /** @class */ (function () {
-    function BillComponent(fb, sharedService, db, datePipe) {
+    function BillComponent(fb, sharedService, db) {
+        var _this = this;
         this.fb = fb;
         this.sharedService = sharedService;
         this.db = db;
-        this.datePipe = datePipe;
-        // errorLog: string = null;
         this.dataPath = 'bills';
+        this.bills = [];
         this.billMedium = [
             {
                 value: 'Bank of America Credit Card',
@@ -368,7 +368,10 @@ var BillComponent = /** @class */ (function () {
             }
         ];
         this.displayedColumns = ['billDate', 'billCategory', 'storeName', 'billAmount', 'payMedium', 'action'];
-        this.bills = db.collection(this.dataPath).valueChanges();
+        this.dataStore = db.collection(this.dataPath, function (ref) { return ref.orderBy('billDate'); }).valueChanges();
+        this.dataStore.subscribe(function (result) {
+            _this.bills = result.filter(function (obj) { return obj.deleteFlag === false; });
+        });
     }
     BillComponent.prototype.ngOnInit = function () {
         this.createForm();
@@ -384,25 +387,29 @@ var BillComponent = /** @class */ (function () {
         });
     };
     BillComponent.prototype.addBill = function () {
-        // this.errorLog = null;
-        // console.log(this.billForm.value);
-        // if (this.billForm.valid) {
-        // const tempDate = this.billForm.controls.billDate.value;
-        // this.billForm.controls.billDate.setValue(this.datePipe.transform(tempDate, 'MM/dd/yyyy'));
         var _this = this;
         this.db.collection(this.dataPath).get().toPromise().then(function (data) {
             _this.billForm.controls.billId.setValue(data.size);
             _this.sharedService.addBill(_this.billForm.value);
             _this.createForm();
         });
-        // this.sharedService.addBill(this.billForm.value);
-        // this.createForm();
-        // } else {
-        //   this.errorLog = 'Please fill all required fields.';
-        // }
     };
     BillComponent.prototype.deleteItem = function (selectedRow) {
         console.log(selectedRow);
+        // console.log('from db: ', this.db.collection(this.dataPath).doc(selectedRow.billId));
+        this.updateDoc(selectedRow.billId, true);
+    };
+    BillComponent.prototype.updateDoc = function (_id, _value) {
+        var _this = this;
+        var doc = this.db.collection(this.dataPath, function (ref) { return ref.where('billId', '==', _id); });
+        doc.snapshotChanges().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (actions) { return actions.map(function (a) {
+            var data = a.payload.doc.data();
+            var id = a.payload.doc.id;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({ id: id }, data);
+        }); })).subscribe(function (result) {
+            var id = result[0].id; // first result of query [0]
+            _this.db.doc(_this.dataPath + "/" + id).update({ deleteFlag: _value });
+        });
     };
     BillComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -412,8 +419,7 @@ var BillComponent = /** @class */ (function () {
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"],
             _shared_service__WEBPACK_IMPORTED_MODULE_3__["SharedService"],
-            _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__["AngularFirestore"],
-            _angular_common__WEBPACK_IMPORTED_MODULE_5__["DatePipe"]])
+            _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__["AngularFirestore"]])
     ], BillComponent);
     return BillComponent;
 }());
