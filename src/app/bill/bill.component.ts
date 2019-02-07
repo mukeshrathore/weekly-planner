@@ -3,8 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SharedService } from '../shared.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { DatePipe } from '@angular/common';
-
+import { map } from 'rxjs/operators';
 @Component({
   selector: 'app-bill',
   templateUrl: './bill.component.html',
@@ -12,21 +11,9 @@ import { DatePipe } from '@angular/common';
 })
 export class BillComponent implements OnInit {
   billForm: FormGroup;
-  // errorLog: string = null;
   dataPath = 'bills';
   bills: any = [];
   dataStore: Observable<any[]>;
-  constructor(
-    private fb: FormBuilder,
-    private sharedService: SharedService,
-    private db: AngularFirestore,
-    private datePipe: DatePipe
-  ) {
-    this.dataStore = db.collection(this.dataPath, ref => ref.orderBy('billDate')).valueChanges();
-    this.dataStore.subscribe(result => {
-      this.bills = result.filter(obj => obj.deleteFlag === false);
-    });
-  }
 
   billMedium = [
     {
@@ -143,10 +130,20 @@ export class BillComponent implements OnInit {
 
   displayedColumns: string[] = ['billDate', 'billCategory', 'storeName', 'billAmount', 'payMedium', 'action'];
 
+  constructor(
+    private fb: FormBuilder,
+    private sharedService: SharedService,
+    private db: AngularFirestore
+  ) {
+    this.dataStore = db.collection(this.dataPath, ref => ref.orderBy('billDate')).valueChanges();
+    this.dataStore.subscribe(result => {
+      this.bills = result.filter(obj => obj.deleteFlag === false);
+    });
+  }
+
   ngOnInit() {
     this.createForm();
   }
-
 
   createForm() {
     this.billForm = this.fb.group({
@@ -160,29 +157,30 @@ export class BillComponent implements OnInit {
   }
 
   addBill() {
-    // this.errorLog = null;
-    // console.log(this.billForm.value);
-    // if (this.billForm.valid) {
-    // const tempDate = this.billForm.controls.billDate.value;
-    // this.billForm.controls.billDate.setValue(this.datePipe.transform(tempDate, 'MM/dd/yyyy'));
-
     this.db.collection(this.dataPath).get().toPromise().then(data => {
       this.billForm.controls.billId.setValue(data.size);
       this.sharedService.addBill(this.billForm.value);
       this.createForm();
     });
-
-    // this.sharedService.addBill(this.billForm.value);
-    // this.createForm();
-    // } else {
-    //   this.errorLog = 'Please fill all required fields.';
-    // }
-
   }
 
   deleteItem(selectedRow) {
     console.log(selectedRow);
-    console.log('from db: ', this.db.collection(this.dataPath).doc(selectedRow.billId));
+    // console.log('from db: ', this.db.collection(this.dataPath).doc(selectedRow.billId));
+    this.updateDoc(selectedRow.billId, true);
+  }
+
+  updateDoc(_id: number, _value: boolean) {
+    const doc = this.db.collection(this.dataPath, ref => ref.where('billId', '==', _id));
+    doc.snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        const data = a.payload.doc.data();
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      }))).subscribe((result: any) => {
+        const id = result[0].id; // first result of query [0]
+        this.db.doc(`${this.dataPath}/${id}`).update({ deleteFlag: _value });
+      })
   }
 
   /**
