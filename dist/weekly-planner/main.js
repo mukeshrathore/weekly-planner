@@ -383,7 +383,8 @@ var BillComponent = /** @class */ (function () {
             billCategory: null,
             storeName: null,
             billAmount: null,
-            payMedium: null
+            payMedium: null,
+            deleteFlag: false
         });
     };
     BillComponent.prototype.addBill = function () {
