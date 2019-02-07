@@ -13,15 +13,19 @@ import { DatePipe } from '@angular/common';
 export class BillComponent implements OnInit {
   billForm: FormGroup;
   // errorLog: string = null;
-  dataPath = 'bills'
-  bills: Observable<any[]>;
+  dataPath = 'bills';
+  bills: any = [];
+  dataStore: Observable<any[]>;
   constructor(
     private fb: FormBuilder,
     private sharedService: SharedService,
     private db: AngularFirestore,
     private datePipe: DatePipe
   ) {
-    this.bills = db.collection(this.dataPath).valueChanges();
+    this.dataStore = db.collection(this.dataPath, ref => ref.orderBy('billDate')).valueChanges();
+    this.dataStore.subscribe(result => {
+      this.bills = result.filter(obj => obj.deleteFlag === false);
+    });
   }
 
   billMedium = [
@@ -178,6 +182,7 @@ export class BillComponent implements OnInit {
 
   deleteItem(selectedRow) {
     console.log(selectedRow);
+    console.log('from db: ', this.db.collection(this.dataPath).doc(selectedRow.billId));
   }
 
   /**
