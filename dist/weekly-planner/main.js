@@ -255,7 +255,7 @@ var BillComponent = /** @class */ (function () {
         this.fb = fb;
         this.sharedService = sharedService;
         this.db = db;
-        this.dataPath = 'bills';
+        this.basePath = null;
         this.bills = [];
         this.billMedium = [
             {
@@ -368,7 +368,8 @@ var BillComponent = /** @class */ (function () {
             }
         ];
         this.displayedColumns = ['billDate', 'billCategory', 'storeName', 'billAmount', 'payMedium', 'action'];
-        this.dataStore = db.collection(this.dataPath, function (ref) { return ref.orderBy('billDate'); }).valueChanges();
+        this.basePath = this.sharedService.basePath;
+        this.dataStore = db.collection(this.basePath, function (ref) { return ref.orderBy('billDate'); }).valueChanges();
         this.dataStore.subscribe(function (result) {
             _this.bills = result.filter(function (obj) { return obj.deleteFlag === false; });
         });
@@ -389,7 +390,7 @@ var BillComponent = /** @class */ (function () {
     };
     BillComponent.prototype.addBill = function () {
         var _this = this;
-        this.db.collection(this.dataPath).get().toPromise().then(function (data) {
+        this.db.collection(this.basePath).get().toPromise().then(function (data) {
             _this.billForm.controls.billId.setValue(data.size);
             _this.sharedService.addBill(_this.billForm.value);
             _this.createForm();
@@ -397,19 +398,19 @@ var BillComponent = /** @class */ (function () {
     };
     BillComponent.prototype.deleteItem = function (selectedRow) {
         console.log(selectedRow);
-        // console.log('from db: ', this.db.collection(this.dataPath).doc(selectedRow.billId));
+        // console.log('from db: ', this.db.collection(this.basePath).doc(selectedRow.billId));
         this.updateDoc(selectedRow.billId, true);
     };
     BillComponent.prototype.updateDoc = function (_id, _value) {
         var _this = this;
-        var doc = this.db.collection(this.dataPath, function (ref) { return ref.where('billId', '==', _id); });
+        var doc = this.db.collection(this.basePath, function (ref) { return ref.where('billId', '==', _id); });
         doc.snapshotChanges().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (actions) { return actions.map(function (a) {
             var data = a.payload.doc.data();
             var id = a.payload.doc.id;
             return tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({ id: id }, data);
         }); })).subscribe(function (result) {
             var id = result[0].id; // first result of query [0]
-            _this.db.doc(_this.dataPath + "/" + id).update({ deleteFlag: _value });
+            _this.db.doc(_this.basePath + "/" + id).update({ deleteFlag: _value });
         });
     };
     BillComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -560,7 +561,7 @@ __webpack_require__.r(__webpack_exports__);
 var SharedService = /** @class */ (function () {
     function SharedService(db) {
         this.db = db;
-        this.basePath = '/stores';
+        this.basePath = '/bills_01_2019';
     }
     SharedService.prototype.addStore = function (requestObj) {
         // const obj = this.db.database.ref(this.basePath);
@@ -570,7 +571,7 @@ var SharedService = /** @class */ (function () {
         console.log('Success: Store Added');
     };
     SharedService.prototype.addBill = function (requestObj) {
-        this.db.collection('/bills').add(requestObj);
+        this.db.collection(this.basePath).add(requestObj);
         console.log('Success: Bill Added');
     };
     SharedService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
