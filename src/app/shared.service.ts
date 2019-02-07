@@ -6,7 +6,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
   providedIn: 'root'
 })
 export class SharedService {
-  basePath = '/stores';
+  basePath = '/bills_01_2019';
   constructor(
     private db: AngularFirestore,
     // private db: AngularFirestoreModule
@@ -21,7 +21,7 @@ export class SharedService {
   }
 
   addBill(requestObj) {
-    this.db.collection('/bills').add(requestObj);
+    this.db.collection(this.basePath).add(requestObj);
     console.log('Success: Bill Added');
   }
 }

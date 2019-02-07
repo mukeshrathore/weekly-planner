@@ -11,7 +11,7 @@ import { map } from 'rxjs/operators';
 })
 export class BillComponent implements OnInit {
   billForm: FormGroup;
-  dataPath = 'bills';
+  basePath: string = null;
   bills: any = [];
   dataStore: Observable<any[]>;
 
@@ -135,7 +135,8 @@ export class BillComponent implements OnInit {
     private sharedService: SharedService,
     private db: AngularFirestore
   ) {
-    this.dataStore = db.collection(this.dataPath, ref => ref.orderBy('billDate')).valueChanges();
+    this.basePath = this.sharedService.basePath;
+    this.dataStore = db.collection(this.basePath, ref => ref.orderBy('billDate')).valueChanges();
     this.dataStore.subscribe(result => {
       this.bills = result.filter(obj => obj.deleteFlag === false);
     });
@@ -158,7 +159,7 @@ export class BillComponent implements OnInit {
   }
 
   addBill() {
-    this.db.collection(this.dataPath).get().toPromise().then(data => {
+    this.db.collection(this.basePath).get().toPromise().then(data => {
       this.billForm.controls.billId.setValue(data.size);
       this.sharedService.addBill(this.billForm.value);
       this.createForm();
@@ -167,12 +168,12 @@ export class BillComponent implements OnInit {
 
   deleteItem(selectedRow) {
     console.log(selectedRow);
-    // console.log('from db: ', this.db.collection(this.dataPath).doc(selectedRow.billId));
+    // console.log('from db: ', this.db.collection(this.basePath).doc(selectedRow.billId));
     this.updateDoc(selectedRow.billId, true);
   }
 
   updateDoc(_id: number, _value: boolean) {
-    const doc = this.db.collection(this.dataPath, ref => ref.where('billId', '==', _id));
+    const doc = this.db.collection(this.basePath, ref => ref.where('billId', '==', _id));
     doc.snapshotChanges().pipe(
       map(actions => actions.map(a => {
         const data = a.payload.doc.data();
@@ -180,7 +181,7 @@ export class BillComponent implements OnInit {
         return { id, ...data };
       }))).subscribe((result: any) => {
         const id = result[0].id; // first result of query [0]
-        this.db.doc(`${this.dataPath}/${id}`).update({ deleteFlag: _value });
+        this.db.doc(`${this.basePath}/${id}`).update({ deleteFlag: _value });
       })
   }
 
