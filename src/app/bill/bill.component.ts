@@ -152,7 +152,8 @@ export class BillComponent implements OnInit {
       billCategory: null,
       storeName: null,
       billAmount: null,
-      payMedium: null
+      payMedium: null,
+      deleteFlag: false
     });
   }
 
@@ -194,5 +195,6 @@ export class BillComponent implements OnInit {
    * 7. show total
    * 8. show month wise datatable with custom pagination
    * 9. add bill id ==done
+   * 10. create new collection if not built and save bills based on bill Date 
    */
 }
