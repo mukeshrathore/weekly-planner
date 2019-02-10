@@ -237,7 +237,7 @@ export class BillComponent implements OnInit {
     this.dataStore = this.db.collection(billURL, ref => ref.orderBy('billDate')).valueChanges();
     this.dataStore.subscribe(result => {
       this.bills = result.filter(obj => obj.deleteFlag === false);
-      this.billTotal = this.bills.map(obj => obj.billAmount).reduce((acc, value) => acc + value, 0);;
+      this.billTotal = this.bills.map(obj => obj.billAmount).reduce((acc, value) => acc + value, 0);
     });
   }
 
@@ -292,7 +292,7 @@ export class BillComponent implements OnInit {
    * TO DO :
    * 0. use full calender js lib to show data.
    * 1. Download csv file
-   * 2. upload csv file 
+   * 2. upload csv file
    * 3. edit item
    * 4. add Bill in dialog
    * 5. delete item == done
