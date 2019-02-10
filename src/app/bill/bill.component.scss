@@ -22,3 +22,10 @@
 .mat-grid-tile.align-left ::ng-deep .mat-figure{
   justify-content: flex-start;
 }
+.mat-header-row{
+  background-color: lightblue;
+}
+
+.mat-footer-row{
+  background-color: antiquewhite;
+}

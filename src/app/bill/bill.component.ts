@@ -18,6 +18,7 @@ export class BillComponent implements OnInit {
   currentYear = Number((new Date()).getFullYear());
   selectedMonth: string = null;
   bills: any = [];
+  billTotal = 0;
   dataStore: Observable<any[]>;
 
   billMedium = [
@@ -133,7 +134,7 @@ export class BillComponent implements OnInit {
     }
   ];
 
-  displayedColumns: string[] = ['billDate', 'billCategory', 'storeName', 'billAmount', 'payMedium', 'action'];
+  displayedColumns: string[] = ['billDate', 'billCategory', 'storeName', 'payMedium', 'billAmount', 'action'];
 
   constructor(
     private fb: FormBuilder,
@@ -236,6 +237,7 @@ export class BillComponent implements OnInit {
     this.dataStore = this.db.collection(billURL, ref => ref.orderBy('billDate')).valueChanges();
     this.dataStore.subscribe(result => {
       this.bills = result.filter(obj => obj.deleteFlag === false);
+      this.billTotal = this.bills.map(obj => obj.billAmount).reduce((acc, value) => acc + value, 0);;
     });
   }
 
