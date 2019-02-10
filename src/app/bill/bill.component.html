@@ -89,70 +89,71 @@
     </mat-grid-tile>
   </mat-grid-list>
 
-  <table mat-table [dataSource]="bills" class="width100">
+  <mat-table [dataSource]="bills" class="width100">
 
     <ng-container matColumnDef="billDate">
-      <th mat-header-cell *matHeaderCellDef> Bill Date </th>
-      <td mat-cell *matCellDef="let element">
+      <mat-header-cell *matHeaderCellDef> Bill Date </mat-header-cell>
+      <mat-cell *matCellDef="let element">
         <span class="mobile-label">Bill Date:</span>
         {{element.billDate.toDate() | date : 'MM/dd/yyyy'}}
-      </td>
-      <td mat-footer-cell *matFooterCellDef>
+      </mat-cell>
+      <mat-footer-cell *matFooterCellDef>
         <span *ngIf="!bills.length">
           No Bills Found
         </span>
-      </td>
+      </mat-footer-cell>
     </ng-container>
 
     <ng-container matColumnDef="billCategory">
-      <th mat-header-cell *matHeaderCellDef> Bill Category </th>
-      <td mat-cell *matCellDef="let element">
+      <mat-header-cell *matHeaderCellDef> Bill Category </mat-header-cell>
+      <mat-cell *matCellDef="let element">
         <span class="mobile-label">Bill Category: </span>
         {{element.billCategory}}
-      </td>
-      <td mat-footer-cell *matFooterCellDef> </td>
+      </mat-cell>
+      <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
     </ng-container>
 
     <ng-container matColumnDef="storeName">
-      <th mat-header-cell *matHeaderCellDef> Store Name </th>
-      <td mat-cell *matCellDef="let element">
+      <mat-header-cell *matHeaderCellDef> Store Name </mat-header-cell>
+      <mat-cell *matCellDef="let element">
         <span class="mobile-label">Store Name: </span>
         {{element.storeName}}
-      </td>
-      <td mat-footer-cell *matFooterCellDef> </td>
+      </mat-cell>
+      <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
     </ng-container>
 
     <ng-container matColumnDef="payMedium">
-      <th mat-header-cell *matHeaderCellDef> Pay Medium </th>
-      <td mat-cell *matCellDef="let element">
+      <mat-header-cell *matHeaderCellDef> Pay Medium </mat-header-cell>
+      <mat-cell *matCellDef="let element">
         <span class="mobile-label">Pay Medium: </span>
         {{element.payMedium}}
-      </td>
-      <td mat-footer-cell *matFooterCellDef> </td>
+      </mat-cell>
+      <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
     </ng-container>
 
     <ng-container matColumnDef="billAmount">
-      <th mat-header-cell *matHeaderCellDef> Bill Amount </th>
-      <td mat-cell *matCellDef="let element">
+      <mat-header-cell *matHeaderCellDef> Bill Amount </mat-header-cell>
+      <mat-cell *matCellDef="let element">
         <span class="mobile-label">Bill Amount: </span>
         {{element.billAmount | currency}}
-      </td>
-      <td mat-footer-cell *matFooterCellDef> <span *ngIf="billTotal">Total: {{billTotal | currency}}</span> </td>
+      </mat-cell>
+      <mat-footer-cell *matFooterCellDef> <span *ngIf="billTotal">Total: {{billTotal | currency}}</span>
+      </mat-footer-cell>
     </ng-container>
 
     <ng-container matColumnDef="action">
-      <th mat-header-cell *matHeaderCellDef> Action </th>
-      <td mat-cell *matCellDef="let row">
+      <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+      <mat-cell *matCellDef="let row">
         <span class="mobile-label">Action: </span>
         <button mat-icon-button (click)="deleteItem(row)">
           <mat-icon color="warn">delete</mat-icon>
         </button>
-      </td>
-      <td mat-footer-cell *matFooterCellDef> </td>
+      </mat-cell>
+      <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
-  </table>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    <mat-footer-row *matFooterRowDef="displayedColumns"></mat-footer-row>
+  </mat-table>
 </div>
