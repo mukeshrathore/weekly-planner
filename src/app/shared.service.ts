@@ -6,7 +6,6 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
   providedIn: 'root'
 })
 export class SharedService {
-  // tempMonth = Number((new Date()).getMonth() + 1);
   currentMonth = (Number((new Date()).getMonth() + 1) < 10) ?
     `0${Number((new Date()).getMonth() + 1)}` :
     `${Number((new Date()).getMonth() + 1)}`;

@@ -5,7 +5,8 @@
 
       <mat-grid-tile colspan="1">
         <mat-form-field class="width100">
-          <input matInput [matDatepicker]="picker" placeholder="Bill Date" formControlName="billDate" autocomplete="off">
+          <input matInput [matDatepicker]="picker" placeholder="Bill Date" formControlName="billDate"
+            autocomplete="off">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker touchUi #picker></mat-datepicker>
         </mat-form-field>
@@ -72,7 +73,22 @@
 
   </form>
 
-  <h3>List of bills Added: </h3>
+  <!-- <h3>List of bills Added: </h3> -->
+  <mat-divider class="mrgTop15 mrgBtm15"></mat-divider>
+
+  <mat-grid-list cols="11" rowHeight="50px">
+    <mat-grid-tile colspan="5" class="align-right">
+      <button mat-icon-button (click)="getSelectedMonth('prev')">
+        <mat-icon aria-label="Previous Month">keyboard_arrow_left</mat-icon>
+      </button>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="1">{{selectedMonth}}</mat-grid-tile>
+    <mat-grid-tile colspan="5" class="align-left">
+      <button mat-icon-button (click)="getSelectedMonth('next')">
+        <mat-icon aria-label="Next Month">keyboard_arrow_right</mat-icon>
+      </button>
+    </mat-grid-tile>
+  </mat-grid-list>
 
   <table mat-table [dataSource]="bills" class="width100">
     <ng-container matColumnDef="billDate">

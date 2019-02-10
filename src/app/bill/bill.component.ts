@@ -11,7 +11,12 @@ import { map } from 'rxjs/operators';
 })
 export class BillComponent implements OnInit {
   billForm: FormGroup;
-  basePath: string = null;
+  basePath: string = this.sharedService.basePath;
+  currentMonth = (Number((new Date()).getMonth() + 1) < 10) ?
+    `0${Number((new Date()).getMonth() + 1)}` :
+    `${Number((new Date()).getMonth() + 1)}`;
+  currentYear = Number((new Date()).getFullYear());
+  selectedMonth: string = null;
   bills: any = [];
   dataStore: Observable<any[]>;
 
@@ -135,15 +140,103 @@ export class BillComponent implements OnInit {
     private sharedService: SharedService,
     private db: AngularFirestore
   ) {
-    this.basePath = this.sharedService.basePath;
-    this.dataStore = db.collection(this.basePath, ref => ref.orderBy('billDate')).valueChanges();
-    this.dataStore.subscribe(result => {
-      this.bills = result.filter(obj => obj.deleteFlag === false);
-    });
+
   }
 
   ngOnInit() {
+    this.getSelectedMonth();
+    this.getTableData();
     this.createForm();
+  }
+
+  getSelectedMonth(state: string = null) {
+    switch (state) {
+      case 'prev':
+        this.currentMonth = (Number(this.currentMonth) - 1) < 10 ?
+          `0${(Number(this.currentMonth) - 1)}` : `${(Number(this.currentMonth) - 1)}`;
+        this.currentYear = this.currentYear;
+        this.getMonthString(this.currentMonth, this.currentYear);
+        this.getTableData(`/bills_${this.currentMonth}_${this.currentYear}`);
+        break;
+
+      case 'next':
+        this.currentMonth = (Number(this.currentMonth) - 1) < 10 ?
+          `0${(Number(this.currentMonth) + 1)}` : `${(Number(this.currentMonth) - 1)}`;
+        this.currentYear = this.currentYear;
+        this.getMonthString(this.currentMonth, this.currentYear);
+        this.getTableData(`/bills_${this.currentMonth}_${this.currentYear}`);
+        break;
+
+      default:
+        this.getMonthString(this.currentMonth, this.currentYear);
+        break;
+    }
+
+  }
+
+  getMonthString(currentMonth, currentYear) {
+
+    switch (currentMonth) {
+      case '01':
+        this.selectedMonth = `Jan ${currentYear}`;
+        break;
+
+      case '02':
+        this.selectedMonth = `Feb ${currentYear}`;
+        break;
+
+      case '03':
+        this.selectedMonth = `Mar ${currentYear}`;
+        break;
+
+      case '04':
+        this.selectedMonth = `Apr ${currentYear}`;
+        break;
+
+      case '05':
+        this.selectedMonth = `May ${currentYear}`;
+        break;
+
+      case '06':
+        this.selectedMonth = `Jun ${currentYear}`;
+        break;
+
+      case '07':
+        this.selectedMonth = `Jul ${currentYear}`;
+        break;
+
+      case '08':
+        this.selectedMonth = `Aug ${currentYear}`;
+        break;
+
+      case '09':
+        this.selectedMonth = `Sep ${currentYear}`;
+        break;
+
+      case '10':
+        this.selectedMonth = `Oct ${currentYear}`;
+        break;
+
+      case '11':
+        this.selectedMonth = `Nov ${currentYear}`;
+        break;
+
+      case '12':
+        this.selectedMonth = `Dec ${currentYear}`;
+        break;
+
+      default:
+        break;
+    }
+  }
+
+
+  getTableData(billURL = this.basePath) {
+    this.bills = [];
+    this.dataStore = this.db.collection(billURL, ref => ref.orderBy('billDate')).valueChanges();
+    this.dataStore.subscribe(result => {
+      this.bills = result.filter(obj => obj.deleteFlag === false);
+    });
   }
 
   createForm() {
@@ -172,8 +265,6 @@ export class BillComponent implements OnInit {
   }
 
   deleteItem(selectedRow) {
-    console.log(selectedRow);
-    // console.log('from db: ', this.db.collection(this.basePath).doc(selectedRow.billId));
     const billMonth = (Number((new Date(selectedRow.billDate.toDate())).getMonth() + 1) < 10) ?
       `0${Number((new Date(selectedRow.billDate.toDate())).getMonth() + 1)}` :
       `${Number((new Date(selectedRow.billDate.toDate())).getMonth() + 1)}`;
@@ -192,7 +283,7 @@ export class BillComponent implements OnInit {
       }))).subscribe((result: any) => {
         const id = result[0].id; // first result of query [0]
         this.db.doc(`${this.basePath}/${id}`).update({ deleteFlag: billValue });
-      })
+      });
   }
 
   /**

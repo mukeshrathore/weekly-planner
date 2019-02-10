@@ -10,3 +10,15 @@
 .warn{
   color:red;
 }
+.mrgTop15{
+  margin-top:15px;
+} 
+.mrgBtm15{
+  margin-bottom: 15px;
+}
+.mat-grid-tile.align-right ::ng-deep .mat-figure{
+  justify-content: flex-end;
+}
+.mat-grid-tile.align-left ::ng-deep .mat-figure{
+  justify-content: flex-start;
+}
