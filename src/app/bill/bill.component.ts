@@ -129,6 +129,10 @@ export class BillComponent implements OnInit {
       viewValue: 'Target'
     },
     {
+      value: 'Online',
+      viewValue: 'Online'
+    },
+    {
       value: 'Custom',
       viewValue: 'Custom'
     }
@@ -272,10 +276,10 @@ export class BillComponent implements OnInit {
       `${Number((new Date(selectedRow.billDate.toDate())).getMonth() + 1)}`;
     const billYear = Number((new Date(selectedRow.billDate.toDate())).getFullYear());
     const billURL = `/bills_${billMonth}_${billYear}`;
-    this.updateDoc(billURL, selectedRow.billId, true);
+    this.updateDoc(billURL, selectedRow.billId, { deleteFlag: true });
   }
 
-  updateDoc(billURL: string, billId: number, billValue: boolean) {
+  updateDoc(billURL: string, billId: number, requestObj) {
     const doc = this.db.collection(billURL, ref => ref.where('billId', '==', billId));
     doc.snapshotChanges().pipe(
       map(actions => actions.map(a => {
@@ -284,7 +288,7 @@ export class BillComponent implements OnInit {
         return { id, ...data };
       }))).subscribe((result: any) => {
         const id = result[0].id; // first result of query [0]
-        this.db.doc(`${billURL}/${id}`).update({ deleteFlag: billValue });
+        this.db.doc(`${billURL}/${id}`).update(requestObj);
       });
   }
 

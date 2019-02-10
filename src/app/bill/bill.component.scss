@@ -1,6 +1,3 @@
-.example-button-row button{
-  margin-right: 8px;
-}
 .mrg15{
   margin:15px;
 }
@@ -28,4 +25,45 @@
 
 .mat-footer-row{
   background-color: antiquewhite;
+}
+.width100{
+  width:100%;
+}
+.height100{
+  height: 100%;
+}
+.mrgTop20{
+  margin-top:20px;
+}
+
+.mobile-label {
+  display: none;
+}
+
+@media(max-width: 414px) {
+  td.mat-cell:first-of-type{
+    padding-left: 0;
+  }
+  td.mat-cell{
+    border:0;
+  }
+  .mobile-label {
+    width: 90px;
+    display: inline-block;
+    font-weight: bold;
+  }
+
+  .mat-header-row {
+    display: none;
+  }
+
+  .mat-row { 
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 8px 24px;
+    width: 100%;
+    height: 100%;
+    border-bottom: 1px solid rgba(0,0,0,.12);
+  }
 }
