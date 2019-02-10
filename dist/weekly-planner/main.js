@@ -212,7 +212,7 @@ var AppModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"mrg15\">\n  <!-- <p class=\"warn\">{{errorLog}}</p> -->\n  <form [formGroup]=\"billForm\" novalidate class=\"mrg15\" (ngSubmit)=\"addBill()\">\n    <mat-grid-list cols=\"1\" rowHeight=\"65px\" gutterSize=\"10px\">\n\n      <mat-grid-tile colspan=\"1\">\n        <mat-form-field class=\"width100\">\n          <input matInput [matDatepicker]=\"picker\" placeholder=\"Bill Date\" formControlName=\"billDate\" autocomplete=\"off\">\n          <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\n          <mat-datepicker touchUi #picker></mat-datepicker>\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile colspan=\"1\">\n        <mat-form-field class=\"width100\">\n          <mat-select placeholder=\"Bill Category\" formControlName=\"billCategory\" #billCat>\n            <mat-option *ngFor=\"let category of billCategories\" [value]=\"category.value\">\n              {{category.viewValue}}\n            </mat-option>\n          </mat-select>\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile colspan=\"1\" *ngIf=\"billCat.value ==='Custom'\">\n        <mat-form-field class=\"width100\">\n          <input matInput type=\"text\" placeholder=\"Custom Bill Category\" formControlName=\"billCategory\">\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile colspan=\"1\">\n        <mat-form-field class=\"width100\">\n          <mat-select placeholder=\"Store Name\" formControlName=\"storeName\" #store>\n            <mat-option *ngFor=\"let store of stores\" [value]=\"store.viewValue\">\n              {{store.viewValue}}\n            </mat-option>\n          </mat-select>\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile colspan=\"1\" *ngIf=\"store.value ==='Custom'\">\n        <mat-form-field class=\"width100\">\n          <input matInput type=\"text\" placeholder=\"Custom Store\" formControlName=\"storeName\">\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile colspan=\"1\">\n        <mat-form-field class=\"width100\">\n          <input matInput type=\"number\" placeholder=\"Bill Amount\" formControlName=\"billAmount\">\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile colspan=\"1\">\n        <mat-form-field class=\"width100\">\n          <mat-select placeholder=\"Bill Paid By\" formControlName=\"payMedium\">\n            <mat-option *ngFor=\"let medium of billMedium\" [value]=\"medium.viewValue\">\n              {{medium.viewValue}}\n            </mat-option>\n          </mat-select>\n        </mat-form-field>\n      </mat-grid-tile>\n\n    </mat-grid-list>\n\n    <mat-grid-list cols=\"1\" rowHeight=\"55px\" gutterSize=\"10px\">\n      <mat-grid-tile colspan=\"1\">\n        <div class=\"example-button-row\">\n          <button mat-raised-button color=\"primary\" type=\"submit\">Save Bill</button>\n          <button mat-raised-button color=\"accent\" type=\"reset\">Clear</button>\n        </div>\n      </mat-grid-tile>\n    </mat-grid-list>\n\n  </form>\n\n  <h3>List of bills Added: </h3>\n\n  <table mat-table [dataSource]=\"bills\" class=\"width100\">\n    <ng-container matColumnDef=\"billDate\">\n      <th mat-header-cell *matHeaderCellDef> Bill Date </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.billDate.toDate() | date : 'MM/dd/yyyy'}} </td>\n    </ng-container>\n    <ng-container matColumnDef=\"billCategory\">\n      <th mat-header-cell *matHeaderCellDef> Bill Category </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.billCategory}} </td>\n    </ng-container>\n    <ng-container matColumnDef=\"storeName\">\n      <th mat-header-cell *matHeaderCellDef> Store Name </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.storeName}} </td>\n    </ng-container>\n    <ng-container matColumnDef=\"billAmount\">\n      <th mat-header-cell *matHeaderCellDef> Bill Amount </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.billAmount}} </td>\n    </ng-container>\n    <ng-container matColumnDef=\"payMedium\">\n      <th mat-header-cell *matHeaderCellDef> Pay Medium </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.payMedium}} </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"action\">\n      <th mat-header-cell *matHeaderCellDef> Action </th>\n      <td mat-cell *matCellDef=\"let row\">\n        <button mat-icon-button (click)=\"deleteItem(row)\">\n          <mat-icon color=\"warn\">delete</mat-icon>\n        </button>\n      </td>\n    </ng-container>\n\n    <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n    <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\n  </table>\n</div>"
+module.exports = "<div class=\"mrg15\">\n  <!-- <p class=\"warn\">{{errorLog}}</p> -->\n  <form [formGroup]=\"billForm\" novalidate class=\"mrg15\" (ngSubmit)=\"addBill()\">\n    <mat-grid-list cols=\"1\" rowHeight=\"65px\" gutterSize=\"10px\">\n\n      <mat-grid-tile colspan=\"1\">\n        <mat-form-field class=\"width100\">\n          <input matInput [matDatepicker]=\"picker\" placeholder=\"Bill Date\" formControlName=\"billDate\"\n            autocomplete=\"off\">\n          <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\n          <mat-datepicker touchUi #picker></mat-datepicker>\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile colspan=\"1\">\n        <mat-form-field class=\"width100\">\n          <mat-select placeholder=\"Bill Category\" formControlName=\"billCategory\" #billCat>\n            <mat-option *ngFor=\"let category of billCategories\" [value]=\"category.value\">\n              {{category.viewValue}}\n            </mat-option>\n          </mat-select>\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile colspan=\"1\" *ngIf=\"billCat.value ==='Custom'\">\n        <mat-form-field class=\"width100\">\n          <input matInput type=\"text\" placeholder=\"Custom Bill Category\" formControlName=\"billCategory\">\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile colspan=\"1\">\n        <mat-form-field class=\"width100\">\n          <mat-select placeholder=\"Store Name\" formControlName=\"storeName\" #store>\n            <mat-option *ngFor=\"let store of stores\" [value]=\"store.viewValue\">\n              {{store.viewValue}}\n            </mat-option>\n          </mat-select>\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile colspan=\"1\" *ngIf=\"store.value ==='Custom'\">\n        <mat-form-field class=\"width100\">\n          <input matInput type=\"text\" placeholder=\"Custom Store\" formControlName=\"storeName\">\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile colspan=\"1\">\n        <mat-form-field class=\"width100\">\n          <input matInput type=\"number\" placeholder=\"Bill Amount\" formControlName=\"billAmount\">\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile colspan=\"1\">\n        <mat-form-field class=\"width100\">\n          <mat-select placeholder=\"Bill Paid By\" formControlName=\"payMedium\">\n            <mat-option *ngFor=\"let medium of billMedium\" [value]=\"medium.viewValue\">\n              {{medium.viewValue}}\n            </mat-option>\n          </mat-select>\n        </mat-form-field>\n      </mat-grid-tile>\n\n    </mat-grid-list>\n\n    <mat-grid-list cols=\"1\" rowHeight=\"55px\" gutterSize=\"10px\">\n      <mat-grid-tile colspan=\"1\">\n        <div class=\"example-button-row\">\n          <button mat-raised-button color=\"primary\" type=\"submit\">Save Bill</button>\n          <button mat-raised-button color=\"accent\" type=\"reset\">Clear</button>\n        </div>\n      </mat-grid-tile>\n    </mat-grid-list>\n\n  </form>\n\n  <!-- <h3>List of bills Added: </h3> -->\n  <mat-divider class=\"mrgTop15 mrgBtm15\"></mat-divider>\n\n  <mat-grid-list cols=\"11\" rowHeight=\"50px\">\n    <mat-grid-tile colspan=\"5\" class=\"align-right\">\n      <button mat-icon-button (click)=\"getSelectedMonth('prev')\">\n        <mat-icon aria-label=\"Previous Month\">keyboard_arrow_left</mat-icon>\n      </button>\n    </mat-grid-tile>\n    <mat-grid-tile colspan=\"1\">{{selectedMonth}}</mat-grid-tile>\n    <mat-grid-tile colspan=\"5\" class=\"align-left\">\n      <button mat-icon-button (click)=\"getSelectedMonth('next')\">\n        <mat-icon aria-label=\"Next Month\">keyboard_arrow_right</mat-icon>\n      </button>\n    </mat-grid-tile>\n  </mat-grid-list>\n\n  <table mat-table [dataSource]=\"bills\" class=\"width100\">\n    <ng-container matColumnDef=\"billDate\">\n      <th mat-header-cell *matHeaderCellDef> Bill Date </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.billDate.toDate() | date : 'MM/dd/yyyy'}} </td>\n      <td mat-footer-cell *matFooterCellDef> </td>\n    </ng-container>\n    <ng-container matColumnDef=\"billCategory\">\n      <th mat-header-cell *matHeaderCellDef> Bill Category </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.billCategory}} </td>\n      <td mat-footer-cell *matFooterCellDef> </td>\n    </ng-container>\n    <ng-container matColumnDef=\"storeName\">\n      <th mat-header-cell *matHeaderCellDef> Store Name </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.storeName}} </td>\n      <td mat-footer-cell *matFooterCellDef> </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"payMedium\">\n      <th mat-header-cell *matHeaderCellDef> Pay Medium </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.payMedium}} </td>\n      <td mat-footer-cell *matFooterCellDef> </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"billAmount\">\n      <th mat-header-cell *matHeaderCellDef> Bill Amount </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.billAmount | currency}} </td>\n      <td mat-footer-cell *matFooterCellDef> <span *ngIf=\"billTotal\">Total: </span> {{billTotal | currency}} </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"action\">\n      <th mat-header-cell *matHeaderCellDef> Action </th>\n      <td mat-cell *matCellDef=\"let row\">\n        <button mat-icon-button (click)=\"deleteItem(row)\">\n          <mat-icon color=\"warn\">delete</mat-icon>\n        </button>\n      </td>\n      <td mat-footer-cell *matFooterCellDef> </td>\n    </ng-container>\n\n    <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n    <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\n    <tr mat-footer-row *matFooterRowDef=\"displayedColumns\"></tr>\n  </table>\n</div>"
 
 /***/ }),
 
@@ -223,7 +223,7 @@ module.exports = "<div class=\"mrg15\">\n  <!-- <p class=\"warn\">{{errorLog}}</
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".example-button-row button {\n  margin-right: 8px; }\n\n.mrg15 {\n  margin: 15px; }\n\n.width100 {\n  width: 100% !important; }\n\n.warn {\n  color: red; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYmlsbC9EOlxcZ2l0aHViLXJlcG9zXFx3ZWVrbHktcGxhbm5lci9zcmNcXGFwcFxcYmlsbFxcYmlsbC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGlCQUFpQixFQUFBOztBQUVuQjtFQUNFLFlBQVcsRUFBQTs7QUFFYjtFQUNFLHNCQUFzQixFQUFBOztBQUV4QjtFQUNFLFVBQVMsRUFBQSIsImZpbGUiOiJzcmMvYXBwL2JpbGwvYmlsbC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5leGFtcGxlLWJ1dHRvbi1yb3cgYnV0dG9ue1xyXG4gIG1hcmdpbi1yaWdodDogOHB4O1xyXG59XHJcbi5tcmcxNXtcclxuICBtYXJnaW46MTVweDtcclxufVxyXG4ud2lkdGgxMDB7XHJcbiAgd2lkdGg6IDEwMCUgIWltcG9ydGFudDtcclxufVxyXG4ud2FybntcclxuICBjb2xvcjpyZWQ7XHJcbn0iXX0= */"
+module.exports = ".example-button-row button {\n  margin-right: 8px; }\n\n.mrg15 {\n  margin: 15px; }\n\n.width100 {\n  width: 100% !important; }\n\n.warn {\n  color: red; }\n\n.mrgTop15 {\n  margin-top: 15px; }\n\n.mrgBtm15 {\n  margin-bottom: 15px; }\n\n.mat-grid-tile.align-right ::ng-deep .mat-figure {\n  justify-content: flex-end; }\n\n.mat-grid-tile.align-left ::ng-deep .mat-figure {\n  justify-content: flex-start; }\n\n.mat-header-row {\n  background-color: lightblue; }\n\n.mat-footer-row {\n  background-color: antiquewhite; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYmlsbC9EOlxcZ2l0aHViLXJlcG9zXFx3ZWVrbHktcGxhbm5lci9zcmNcXGFwcFxcYmlsbFxcYmlsbC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGlCQUFpQixFQUFBOztBQUVuQjtFQUNFLFlBQVcsRUFBQTs7QUFFYjtFQUNFLHNCQUFzQixFQUFBOztBQUV4QjtFQUNFLFVBQVMsRUFBQTs7QUFFWDtFQUNFLGdCQUFlLEVBQUE7O0FBRWpCO0VBQ0UsbUJBQW1CLEVBQUE7O0FBRXJCO0VBQ0UseUJBQXlCLEVBQUE7O0FBRTNCO0VBQ0UsMkJBQTJCLEVBQUE7O0FBRTdCO0VBQ0UsMkJBQTJCLEVBQUE7O0FBRzdCO0VBQ0UsOEJBQThCLEVBQUEiLCJmaWxlIjoic3JjL2FwcC9iaWxsL2JpbGwuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuZXhhbXBsZS1idXR0b24tcm93IGJ1dHRvbntcclxuICBtYXJnaW4tcmlnaHQ6IDhweDtcclxufVxyXG4ubXJnMTV7XHJcbiAgbWFyZ2luOjE1cHg7XHJcbn1cclxuLndpZHRoMTAwe1xyXG4gIHdpZHRoOiAxMDAlICFpbXBvcnRhbnQ7XHJcbn1cclxuLndhcm57XHJcbiAgY29sb3I6cmVkO1xyXG59XHJcbi5tcmdUb3AxNXtcclxuICBtYXJnaW4tdG9wOjE1cHg7XHJcbn0gXHJcbi5tcmdCdG0xNXtcclxuICBtYXJnaW4tYm90dG9tOiAxNXB4O1xyXG59XHJcbi5tYXQtZ3JpZC10aWxlLmFsaWduLXJpZ2h0IDo6bmctZGVlcCAubWF0LWZpZ3VyZXtcclxuICBqdXN0aWZ5LWNvbnRlbnQ6IGZsZXgtZW5kO1xyXG59XHJcbi5tYXQtZ3JpZC10aWxlLmFsaWduLWxlZnQgOjpuZy1kZWVwIC5tYXQtZmlndXJle1xyXG4gIGp1c3RpZnktY29udGVudDogZmxleC1zdGFydDtcclxufVxyXG4ubWF0LWhlYWRlci1yb3d7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogbGlnaHRibHVlO1xyXG59XHJcblxyXG4ubWF0LWZvb3Rlci1yb3d7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogYW50aXF1ZXdoaXRlO1xyXG59Il19 */"
 
 /***/ }),
 
@@ -251,12 +251,17 @@ __webpack_require__.r(__webpack_exports__);
 
 var BillComponent = /** @class */ (function () {
     function BillComponent(fb, sharedService, db) {
-        var _this = this;
         this.fb = fb;
         this.sharedService = sharedService;
         this.db = db;
-        this.basePath = null;
+        this.basePath = this.sharedService.basePath;
+        this.currentMonth = (Number((new Date()).getMonth() + 1) < 10) ?
+            "0" + Number((new Date()).getMonth() + 1) :
+            "" + Number((new Date()).getMonth() + 1);
+        this.currentYear = Number((new Date()).getFullYear());
+        this.selectedMonth = null;
         this.bills = [];
+        this.billTotal = 0;
         this.billMedium = [
             {
                 value: 'Bank of America Credit Card',
@@ -367,15 +372,87 @@ var BillComponent = /** @class */ (function () {
                 viewValue: 'Custom'
             }
         ];
-        this.displayedColumns = ['billDate', 'billCategory', 'storeName', 'billAmount', 'payMedium', 'action'];
-        this.basePath = this.sharedService.basePath;
-        this.dataStore = db.collection(this.basePath, function (ref) { return ref.orderBy('billDate'); }).valueChanges();
-        this.dataStore.subscribe(function (result) {
-            _this.bills = result.filter(function (obj) { return obj.deleteFlag === false; });
-        });
+        this.displayedColumns = ['billDate', 'billCategory', 'storeName', 'payMedium', 'billAmount', 'action'];
     }
     BillComponent.prototype.ngOnInit = function () {
+        this.getSelectedMonth();
+        this.getTableData();
         this.createForm();
+    };
+    BillComponent.prototype.getSelectedMonth = function (state) {
+        if (state === void 0) { state = null; }
+        switch (state) {
+            case 'prev':
+                this.currentMonth = (Number(this.currentMonth) - 1) < 10 ?
+                    "0" + (Number(this.currentMonth) - 1) : "" + (Number(this.currentMonth) - 1);
+                this.currentYear = this.currentYear;
+                this.getMonthString(this.currentMonth, this.currentYear);
+                this.getTableData("/bills_" + this.currentMonth + "_" + this.currentYear);
+                break;
+            case 'next':
+                this.currentMonth = (Number(this.currentMonth) - 1) < 10 ?
+                    "0" + (Number(this.currentMonth) + 1) : "" + (Number(this.currentMonth) - 1);
+                this.currentYear = this.currentYear;
+                this.getMonthString(this.currentMonth, this.currentYear);
+                this.getTableData("/bills_" + this.currentMonth + "_" + this.currentYear);
+                break;
+            default:
+                this.getMonthString(this.currentMonth, this.currentYear);
+                break;
+        }
+    };
+    BillComponent.prototype.getMonthString = function (currentMonth, currentYear) {
+        switch (currentMonth) {
+            case '01':
+                this.selectedMonth = "Jan " + currentYear;
+                break;
+            case '02':
+                this.selectedMonth = "Feb " + currentYear;
+                break;
+            case '03':
+                this.selectedMonth = "Mar " + currentYear;
+                break;
+            case '04':
+                this.selectedMonth = "Apr " + currentYear;
+                break;
+            case '05':
+                this.selectedMonth = "May " + currentYear;
+                break;
+            case '06':
+                this.selectedMonth = "Jun " + currentYear;
+                break;
+            case '07':
+                this.selectedMonth = "Jul " + currentYear;
+                break;
+            case '08':
+                this.selectedMonth = "Aug " + currentYear;
+                break;
+            case '09':
+                this.selectedMonth = "Sep " + currentYear;
+                break;
+            case '10':
+                this.selectedMonth = "Oct " + currentYear;
+                break;
+            case '11':
+                this.selectedMonth = "Nov " + currentYear;
+                break;
+            case '12':
+                this.selectedMonth = "Dec " + currentYear;
+                break;
+            default:
+                break;
+        }
+    };
+    BillComponent.prototype.getTableData = function (billURL) {
+        var _this = this;
+        if (billURL === void 0) { billURL = this.basePath; }
+        this.bills = [];
+        this.dataStore = this.db.collection(billURL, function (ref) { return ref.orderBy('billDate'); }).valueChanges();
+        this.dataStore.subscribe(function (result) {
+            _this.bills = result.filter(function (obj) { return obj.deleteFlag === false; });
+            _this.billTotal = _this.bills.map(function (obj) { return obj.billAmount; }).reduce(function (acc, value) { return acc + value; }, 0);
+            ;
+        });
     };
     BillComponent.prototype.createForm = function () {
         this.billForm = this.fb.group({
@@ -390,27 +467,35 @@ var BillComponent = /** @class */ (function () {
     };
     BillComponent.prototype.addBill = function () {
         var _this = this;
+        var billMonth = (Number((new Date(this.billForm.controls.billDate.value)).getMonth() + 1) < 10) ?
+            "0" + Number((new Date(this.billForm.controls.billDate.value)).getMonth() + 1) :
+            "" + Number((new Date(this.billForm.controls.billDate.value)).getMonth() + 1);
+        var billYear = Number((new Date(this.billForm.controls.billDate.value)).getFullYear());
+        var billURL = "/bills_" + billMonth + "_" + billYear;
         this.db.collection(this.basePath).get().toPromise().then(function (data) {
             _this.billForm.controls.billId.setValue(data.size);
-            _this.sharedService.addBill(_this.billForm.value);
+            _this.sharedService.addBill(billURL, _this.billForm.value);
             _this.createForm();
         });
     };
     BillComponent.prototype.deleteItem = function (selectedRow) {
-        console.log(selectedRow);
-        // console.log('from db: ', this.db.collection(this.basePath).doc(selectedRow.billId));
-        this.updateDoc(selectedRow.billId, true);
+        var billMonth = (Number((new Date(selectedRow.billDate.toDate())).getMonth() + 1) < 10) ?
+            "0" + Number((new Date(selectedRow.billDate.toDate())).getMonth() + 1) :
+            "" + Number((new Date(selectedRow.billDate.toDate())).getMonth() + 1);
+        var billYear = Number((new Date(selectedRow.billDate.toDate())).getFullYear());
+        var billURL = "/bills_" + billMonth + "_" + billYear;
+        this.updateDoc(billURL, selectedRow.billId, true);
     };
-    BillComponent.prototype.updateDoc = function (_id, _value) {
+    BillComponent.prototype.updateDoc = function (billURL, billId, billValue) {
         var _this = this;
-        var doc = this.db.collection(this.basePath, function (ref) { return ref.where('billId', '==', _id); });
+        var doc = this.db.collection(billURL, function (ref) { return ref.where('billId', '==', billId); });
         doc.snapshotChanges().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (actions) { return actions.map(function (a) {
             var data = a.payload.doc.data();
             var id = a.payload.doc.id;
             return tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({ id: id }, data);
         }); })).subscribe(function (result) {
             var id = result[0].id; // first result of query [0]
-            _this.db.doc(_this.basePath + "/" + id).update({ deleteFlag: _value });
+            _this.db.doc(_this.basePath + "/" + id).update({ deleteFlag: billValue });
         });
     };
     BillComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -464,7 +549,8 @@ var ImportMaterialModuleModule = /** @class */ (function () {
                 _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatSelectModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatGridListModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatTableModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatIconModule"]
+                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatIconModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDividerModule"]
             ],
             exports: [
                 _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatFormFieldModule"],
@@ -475,7 +561,8 @@ var ImportMaterialModuleModule = /** @class */ (function () {
                 _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatSelectModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatGridListModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatTableModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatIconModule"]
+                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatIconModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDividerModule"]
             ]
         })
     ], ImportMaterialModuleModule);
@@ -561,7 +648,11 @@ __webpack_require__.r(__webpack_exports__);
 var SharedService = /** @class */ (function () {
     function SharedService(db) {
         this.db = db;
-        this.basePath = '/bills_01_2019';
+        this.currentMonth = (Number((new Date()).getMonth() + 1) < 10) ?
+            "0" + Number((new Date()).getMonth() + 1) :
+            "" + Number((new Date()).getMonth() + 1);
+        this.currentYear = Number((new Date()).getFullYear());
+        this.basePath = "/bills_" + this.currentMonth + "_" + this.currentYear;
     }
     SharedService.prototype.addStore = function (requestObj) {
         // const obj = this.db.database.ref(this.basePath);
@@ -570,9 +661,14 @@ var SharedService = /** @class */ (function () {
         // obj.push(requestObj);
         console.log('Success: Store Added');
     };
-    SharedService.prototype.addBill = function (requestObj) {
-        this.db.collection(this.basePath).add(requestObj);
-        console.log('Success: Bill Added');
+    SharedService.prototype.addBill = function (billURL, requestObj) {
+        this.db.collection(billURL).add(requestObj)
+            .then(function () {
+            console.log('Bill Added Successfully!!');
+        })
+            .catch(function (error) {
+            console.error('Error while adding Bill: ', error);
+        });
     };
     SharedService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
