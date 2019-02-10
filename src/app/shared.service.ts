@@ -6,7 +6,13 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
   providedIn: 'root'
 })
 export class SharedService {
-  basePath = '/bills_01_2019';
+  // tempMonth = Number((new Date()).getMonth() + 1);
+  currentMonth = (Number((new Date()).getMonth() + 1) < 10) ?
+    `0${Number((new Date()).getMonth() + 1)}` :
+    `${Number((new Date()).getMonth() + 1)}`;
+  currentYear = Number((new Date()).getFullYear());
+
+  basePath = `/bills_${this.currentMonth}_${this.currentYear}`;
   constructor(
     private db: AngularFirestore,
     // private db: AngularFirestoreModule
@@ -20,8 +26,13 @@ export class SharedService {
     console.log('Success: Store Added');
   }
 
-  addBill(requestObj) {
-    this.db.collection(this.basePath).add(requestObj);
-    console.log('Success: Bill Added');
+  addBill(billURL, requestObj) {
+    this.db.collection(billURL).add(requestObj)
+      .then(() => {
+        console.log('Bill Added Successfully!!');
+      })
+      .catch((error) => {
+        console.error('Error while adding Bill: ', error);
+      });
   }
 }

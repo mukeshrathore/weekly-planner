@@ -159,9 +159,14 @@ export class BillComponent implements OnInit {
   }
 
   addBill() {
+    const billMonth = (Number((new Date(this.billForm.controls.billDate.value)).getMonth() + 1) < 10) ?
+      `0${Number((new Date(this.billForm.controls.billDate.value)).getMonth() + 1)}` :
+      `${Number((new Date(this.billForm.controls.billDate.value)).getMonth() + 1)}`;
+    const billYear = Number((new Date(this.billForm.controls.billDate.value)).getFullYear());
+    const billURL = `/bills_${billMonth}_${billYear}`;
     this.db.collection(this.basePath).get().toPromise().then(data => {
       this.billForm.controls.billId.setValue(data.size);
-      this.sharedService.addBill(this.billForm.value);
+      this.sharedService.addBill(billURL, this.billForm.value);
       this.createForm();
     });
   }
@@ -169,11 +174,16 @@ export class BillComponent implements OnInit {
   deleteItem(selectedRow) {
     console.log(selectedRow);
     // console.log('from db: ', this.db.collection(this.basePath).doc(selectedRow.billId));
-    this.updateDoc(selectedRow.billId, true);
+    const billMonth = (Number((new Date(selectedRow.billDate.toDate())).getMonth() + 1) < 10) ?
+      `0${Number((new Date(selectedRow.billDate.toDate())).getMonth() + 1)}` :
+      `${Number((new Date(selectedRow.billDate.toDate())).getMonth() + 1)}`;
+    const billYear = Number((new Date(selectedRow.billDate.toDate())).getFullYear());
+    const billURL = `/bills_${billMonth}_${billYear}`;
+    this.updateDoc(billURL, selectedRow.billId, true);
   }
 
-  updateDoc(_id: number, _value: boolean) {
-    const doc = this.db.collection(this.basePath, ref => ref.where('billId', '==', _id));
+  updateDoc(billURL: string, billId: number, billValue: boolean) {
+    const doc = this.db.collection(billURL, ref => ref.where('billId', '==', billId));
     doc.snapshotChanges().pipe(
       map(actions => actions.map(a => {
         const data = a.payload.doc.data();
@@ -181,7 +191,7 @@ export class BillComponent implements OnInit {
         return { id, ...data };
       }))).subscribe((result: any) => {
         const id = result[0].id; // first result of query [0]
-        this.db.doc(`${this.basePath}/${id}`).update({ deleteFlag: _value });
+        this.db.doc(`${this.basePath}/${id}`).update({ deleteFlag: billValue });
       })
   }
 
