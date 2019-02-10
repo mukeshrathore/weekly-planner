@@ -290,15 +290,16 @@ export class BillComponent implements OnInit {
 
   /**
    * TO DO :
+   * 0. use full calender js lib to show data.
    * 1. Download csv file
    * 2. upload csv file 
-   * 3. delete item == done
-   * 4. edit item
-   * 5. add Bill in dialog
-   * 6. sorting datatable based on Purchase date
-   * 7. show total
-   * 8. show month wise datatable with custom pagination
+   * 3. edit item
+   * 4. add Bill in dialog
+   * 5. delete item == done
+   * 6. sorting datatable based on Purchase date ==done
+   * 7. show total ==done
+   * 8. show month wise datatable with custom pagination ==done
    * 9. add bill id ==done
-   * 10. create new collection if not built and save bills based on bill Date 
+   * 10. create new collection if not built and save bills based on bill Date ==done
    */
 }
