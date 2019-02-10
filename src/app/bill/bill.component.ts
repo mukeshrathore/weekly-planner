@@ -284,7 +284,7 @@ export class BillComponent implements OnInit {
         return { id, ...data };
       }))).subscribe((result: any) => {
         const id = result[0].id; // first result of query [0]
-        this.db.doc(`${this.basePath}/${id}`).update({ deleteFlag: billValue });
+        this.db.doc(`${billURL}/${id}`).update({ deleteFlag: billValue });
       });
   }
 
