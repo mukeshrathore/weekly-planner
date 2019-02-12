@@ -10,6 +10,7 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./bill.component.scss']
 })
 export class BillComponent implements OnInit {
+  showSpinner = false;
   billForm: FormGroup;
   basePath: string = this.sharedService.basePath;
   currentMonth = (Number((new Date()).getMonth() + 1) < 10) ?
@@ -96,6 +97,10 @@ export class BillComponent implements OnInit {
     {
       value: 'Ymca Bill',
       viewValue: 'Ymca Bill'
+    },
+    {
+      value: 'Internet Bill',
+      viewValue: 'Internet Bill'
     },
     {
       value: 'Custom',
@@ -237,11 +242,14 @@ export class BillComponent implements OnInit {
 
 
   getTableData(billURL = this.basePath) {
+    this.billTotal = 0;
+    this.showSpinner = true;
     this.bills = [];
     this.dataStore = this.db.collection(billURL, ref => ref.orderBy('billDate')).valueChanges();
     this.dataStore.subscribe(result => {
       this.bills = result.filter(obj => obj.deleteFlag === false);
       this.billTotal = this.bills.map(obj => obj.billAmount).reduce((acc, value) => acc + value, 0);
+      this.showSpinner = false;
     });
   }
 
@@ -258,6 +266,7 @@ export class BillComponent implements OnInit {
   }
 
   addBill() {
+    this.showSpinner = true;
     const billMonth = (Number((new Date(this.billForm.controls.billDate.value)).getMonth() + 1) < 10) ?
       `0${Number((new Date(this.billForm.controls.billDate.value)).getMonth() + 1)}` :
       `${Number((new Date(this.billForm.controls.billDate.value)).getMonth() + 1)}`;
@@ -267,16 +276,19 @@ export class BillComponent implements OnInit {
       this.billForm.controls.billId.setValue(data.size);
       this.sharedService.addBill(billURL, this.billForm.value);
       this.createForm();
+      this.showSpinner = false;
     });
   }
 
   deleteItem(selectedRow) {
+    this.showSpinner = true;
     const billMonth = (Number((new Date(selectedRow.billDate.toDate())).getMonth() + 1) < 10) ?
       `0${Number((new Date(selectedRow.billDate.toDate())).getMonth() + 1)}` :
       `${Number((new Date(selectedRow.billDate.toDate())).getMonth() + 1)}`;
     const billYear = Number((new Date(selectedRow.billDate.toDate())).getFullYear());
     const billURL = `/bills_${billMonth}_${billYear}`;
     this.updateDoc(billURL, selectedRow.billId, { deleteFlag: true });
+    this.showSpinner = false;
   }
 
   updateDoc(billURL: string, billId: number, requestObj) {

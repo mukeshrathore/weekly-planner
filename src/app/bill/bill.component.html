@@ -156,3 +156,6 @@
     <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
   </table>
 </div>
+<div class="spinner-container" *ngIf="showSpinner">
+  <mat-spinner color="primary" diameter="60" strokeWidth="3"></mat-spinner>
+</div>
