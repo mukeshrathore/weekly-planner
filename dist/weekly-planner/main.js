@@ -155,6 +155,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _store_store_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./store/store.component */ "./src/app/store/store.component.ts");
 /* harmony import */ var _import_material_module_module__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./import-material-module.module */ "./src/app/import-material-module.module.ts");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _confirmation_dialog_confirmation_dialog_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./confirmation-dialog/confirmation-dialog.component */ "./src/app/confirmation-dialog/confirmation-dialog.component.ts");
+
 
 
 
@@ -181,7 +183,8 @@ var AppModule = /** @class */ (function () {
                 _app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"],
                 _bill_bill_component__WEBPACK_IMPORTED_MODULE_11__["BillComponent"],
                 _page_not_found_page_not_found_component__WEBPACK_IMPORTED_MODULE_12__["PageNotFoundComponent"],
-                _store_store_component__WEBPACK_IMPORTED_MODULE_14__["StoreComponent"]
+                _store_store_component__WEBPACK_IMPORTED_MODULE_14__["StoreComponent"],
+                _confirmation_dialog_confirmation_dialog_component__WEBPACK_IMPORTED_MODULE_17__["ConfirmationDialogComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
@@ -212,7 +215,7 @@ var AppModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"mrg15\">\n  <!-- <p class=\"warn\">{{errorLog}}</p> -->\n  <form [formGroup]=\"billForm\" novalidate (ngSubmit)=\"addBill()\">\n    <mat-grid-list cols=\"1\" rowHeight=\"65px\" gutterSize=\"10px\">\n\n      <mat-grid-tile colspan=\"1\">\n        <mat-form-field class=\"width100\">\n          <input matInput [matDatepicker]=\"picker\" placeholder=\"Bill Date\" formControlName=\"billDate\"\n            autocomplete=\"off\">\n          <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\n          <mat-datepicker touchUi #picker></mat-datepicker>\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile colspan=\"1\">\n        <mat-form-field class=\"width100\">\n          <mat-select placeholder=\"Bill Category\" formControlName=\"billCategory\" #billCat>\n            <mat-option *ngFor=\"let category of billCategories\" [value]=\"category.value\">\n              {{category.viewValue}}\n            </mat-option>\n          </mat-select>\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile colspan=\"1\" *ngIf=\"billCat.value ==='Custom'\">\n        <mat-form-field class=\"width100\">\n          <input matInput type=\"text\" placeholder=\"Custom Bill Category\" formControlName=\"billCategory\">\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile colspan=\"1\">\n        <mat-form-field class=\"width100\">\n          <mat-select placeholder=\"Store Name\" formControlName=\"storeName\" #store>\n            <mat-option *ngFor=\"let store of stores\" [value]=\"store.viewValue\">\n              {{store.viewValue}}\n            </mat-option>\n          </mat-select>\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile colspan=\"1\" *ngIf=\"store.value ==='Custom'\">\n        <mat-form-field class=\"width100\">\n          <input matInput type=\"text\" placeholder=\"Custom Store\" formControlName=\"storeName\">\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile colspan=\"1\">\n        <mat-form-field class=\"width100\">\n          <span matPrefix>$ &nbsp;</span>\n          <input matInput type=\"number\" placeholder=\"Bill Amount\" formControlName=\"billAmount\">\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile colspan=\"1\">\n        <mat-form-field class=\"width100\">\n          <mat-select placeholder=\"Bill Paid By\" formControlName=\"payMedium\">\n            <mat-option *ngFor=\"let medium of billMedium\" [value]=\"medium.viewValue\">\n              {{medium.viewValue}}\n            </mat-option>\n          </mat-select>\n        </mat-form-field>\n      </mat-grid-tile>\n\n    </mat-grid-list>\n\n    <mat-grid-list cols=\"1\" rowHeight=\"55px\">\n      <mat-grid-tile colspan=\"1\">\n        <button mat-raised-button color=\"primary\" type=\"submit\" class=\"width100 height100\">Save Bill</button>\n      </mat-grid-tile>\n      <mat-grid-tile colspan=\"1\" class=\"mrgTop20\">\n        <button mat-raised-button color=\"accent\" type=\"reset\" class=\"width100 height100\">Clear</button>\n      </mat-grid-tile>\n    </mat-grid-list>\n\n  </form>\n\n  <!-- <h3>List of bills Added: </h3> -->\n  <mat-divider class=\"mrgTop15 mrgBtm15\"></mat-divider>\n\n  <mat-grid-list cols=\"1\" rowHeight=\"50px\">\n    <mat-grid-tile colspan=\"1\">\n      <button mat-icon-button (click)=\"getSelectedMonth('prev')\">\n        <mat-icon aria-label=\"Previous Month\">keyboard_arrow_left</mat-icon>\n      </button>\n      {{selectedMonth}}\n      <button mat-icon-button (click)=\"getSelectedMonth('next')\">\n        <mat-icon aria-label=\"Next Month\">keyboard_arrow_right</mat-icon>\n      </button>\n    </mat-grid-tile>\n  </mat-grid-list>\n\n  <table mat-table [dataSource]=\"bills\" class=\"width100\">\n\n    <ng-container matColumnDef=\"billDate\">\n      <th mat-header-cell *matHeaderCellDef> Bill Date </th>\n      <td mat-cell *matCellDef=\"let element\">\n        <span class=\"mobile-label\">Bill Date:</span>\n        {{element.billDate.toDate() | date : 'MM/dd/yyyy'}}\n      </td>\n      <td mat-footer-cell *matFooterCellDef>\n        <span *ngIf=\"!bills.length\">\n          No Bills Found\n        </span>\n      </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"billCategory\">\n      <th mat-header-cell *matHeaderCellDef> Bill Category </th>\n      <td mat-cell *matCellDef=\"let element\">\n        <span class=\"mobile-label\">Bill Category: </span>\n        {{element.billCategory}}\n      </td>\n      <td mat-footer-cell *matFooterCellDef> </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"storeName\">\n      <th mat-header-cell *matHeaderCellDef> Store Name </th>\n      <td mat-cell *matCellDef=\"let element\">\n        <span class=\"mobile-label\">Store Name: </span>\n        {{element.storeName}}\n      </td>\n      <td mat-footer-cell *matFooterCellDef> </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"payMedium\">\n      <th mat-header-cell *matHeaderCellDef> Pay Medium </th>\n      <td mat-cell *matCellDef=\"let element\">\n        <span class=\"mobile-label\">Pay Medium: </span>\n        {{element.payMedium}}\n      </td>\n      <td mat-footer-cell *matFooterCellDef> </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"billAmount\">\n      <th mat-header-cell *matHeaderCellDef> Bill Amount </th>\n      <td mat-cell *matCellDef=\"let element\">\n        <span class=\"mobile-label\">Bill Amount: </span>\n        {{element.billAmount | currency}}\n      </td>\n      <td mat-footer-cell *matFooterCellDef> <span *ngIf=\"billTotal\">Total: {{billTotal | currency}}</span> </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"action\">\n      <th mat-header-cell *matHeaderCellDef> Action </th>\n      <td mat-cell *matCellDef=\"let row\">\n        <span class=\"mobile-label\">Action: </span>\n        <button mat-icon-button (click)=\"deleteItem(row)\">\n          <mat-icon color=\"warn\">delete</mat-icon>\n        </button>\n      </td>\n      <td mat-footer-cell *matFooterCellDef> </td>\n    </ng-container>\n\n    <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n    <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\n    <tr mat-footer-row *matFooterRowDef=\"displayedColumns\"></tr>\n  </table>\n</div>"
+module.exports = "<div class=\"mrg15\">\n  <!-- <p class=\"warn\">{{errorLog}}</p> -->\n  <form [formGroup]=\"billForm\" novalidate (ngSubmit)=\"addBill()\">\n    <mat-grid-list cols=\"1\" rowHeight=\"65px\" gutterSize=\"10px\">\n\n      <mat-grid-tile colspan=\"1\">\n        <mat-form-field class=\"width100\">\n          <input matInput [matDatepicker]=\"picker\" placeholder=\"Bill Date\" formControlName=\"billDate\"\n            autocomplete=\"off\">\n          <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\n          <mat-datepicker touchUi #picker></mat-datepicker>\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile colspan=\"1\">\n        <mat-form-field class=\"width100\">\n          <mat-select placeholder=\"Bill Category\" formControlName=\"billCategory\" #billCat>\n            <mat-option *ngFor=\"let category of billCategories\" [value]=\"category.value\">\n              {{category.viewValue}}\n            </mat-option>\n          </mat-select>\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile colspan=\"1\" *ngIf=\"billCat.value ==='Custom'\">\n        <mat-form-field class=\"width100\">\n          <input matInput type=\"text\" placeholder=\"Custom Bill Category\" formControlName=\"billCategory\">\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile colspan=\"1\">\n        <mat-form-field class=\"width100\">\n          <mat-select placeholder=\"Store Name\" formControlName=\"storeName\" #store>\n            <mat-option *ngFor=\"let store of stores\" [value]=\"store.viewValue\">\n              {{store.viewValue}}\n            </mat-option>\n          </mat-select>\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile colspan=\"1\" *ngIf=\"store.value ==='Custom'\">\n        <mat-form-field class=\"width100\">\n          <input matInput type=\"text\" placeholder=\"Custom Store\" formControlName=\"storeName\">\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile colspan=\"1\">\n        <mat-form-field class=\"width100\">\n          <span matPrefix>$ &nbsp;</span>\n          <input matInput type=\"number\" placeholder=\"Bill Amount\" formControlName=\"billAmount\">\n        </mat-form-field>\n      </mat-grid-tile>\n\n      <mat-grid-tile colspan=\"1\">\n        <mat-form-field class=\"width100\">\n          <mat-select placeholder=\"Bill Paid By\" formControlName=\"payMedium\">\n            <mat-option *ngFor=\"let medium of billMedium\" [value]=\"medium.viewValue\">\n              {{medium.viewValue}}\n            </mat-option>\n          </mat-select>\n        </mat-form-field>\n      </mat-grid-tile>\n\n    </mat-grid-list>\n\n    <mat-grid-list cols=\"1\" rowHeight=\"55px\">\n      <mat-grid-tile colspan=\"1\">\n        <button mat-raised-button color=\"primary\" type=\"submit\" class=\"width100 height100\">Save Bill</button>\n      </mat-grid-tile>\n      <mat-grid-tile colspan=\"1\" class=\"mrgTop20\">\n        <button mat-raised-button color=\"accent\" type=\"reset\" class=\"width100 height100\">Clear</button>\n      </mat-grid-tile>\n    </mat-grid-list>\n\n  </form>\n\n  <!-- <h3>List of bills Added: </h3> -->\n  <mat-divider class=\"mrgTop15 mrgBtm15\"></mat-divider>\n\n  <mat-grid-list cols=\"1\" rowHeight=\"50px\">\n    <mat-grid-tile colspan=\"1\">\n      <button mat-icon-button (click)=\"getSelectedMonth('prev')\" color=\"primary\">\n        <mat-icon aria-label=\"Previous Month\">keyboard_arrow_left</mat-icon>\n      </button>\n      {{selectedMonth}}\n      <button mat-icon-button (click)=\"getSelectedMonth('next')\" color=\"primary\">\n        <mat-icon aria-label=\"Next Month\">keyboard_arrow_right</mat-icon>\n      </button>\n    </mat-grid-tile>\n  </mat-grid-list>\n\n  <table mat-table [dataSource]=\"bills\" class=\"width100\">\n\n    <ng-container matColumnDef=\"billDate\">\n      <th mat-header-cell *matHeaderCellDef> Bill Date </th>\n      <td mat-cell *matCellDef=\"let element\">\n        <span class=\"mobile-label\">Bill Date:</span>\n        {{element.billDate.toDate() | date : 'MM/dd/yyyy'}}\n      </td>\n      <td mat-footer-cell *matFooterCellDef>\n        <span *ngIf=\"!bills.length\">\n          No Bills Found\n        </span>\n      </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"billCategory\">\n      <th mat-header-cell *matHeaderCellDef> Bill Category </th>\n      <td mat-cell *matCellDef=\"let element\">\n        <span class=\"mobile-label\">Bill Category: </span>\n        {{element.billCategory}}\n      </td>\n      <td mat-footer-cell *matFooterCellDef> </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"storeName\">\n      <th mat-header-cell *matHeaderCellDef> Store Name </th>\n      <td mat-cell *matCellDef=\"let element\">\n        <span class=\"mobile-label\">Store Name: </span>\n        {{element.storeName}}\n      </td>\n      <td mat-footer-cell *matFooterCellDef> </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"payMedium\">\n      <th mat-header-cell *matHeaderCellDef> Pay Medium </th>\n      <td mat-cell *matCellDef=\"let element\">\n        <span class=\"mobile-label\">Pay Medium: </span>\n        {{element.payMedium}}\n      </td>\n      <td mat-footer-cell *matFooterCellDef> </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"billAmount\">\n      <th mat-header-cell *matHeaderCellDef> Bill Amount </th>\n      <td mat-cell *matCellDef=\"let element\">\n        <span class=\"mobile-label\">Bill Amount: </span>\n        {{element.billAmount | currency}}\n      </td>\n      <td mat-footer-cell *matFooterCellDef> <span *ngIf=\"billTotal\">Total: {{billTotal | currency}}</span> </td>\n    </ng-container>\n\n    <ng-container matColumnDef=\"action\">\n      <th mat-header-cell *matHeaderCellDef> Action </th>\n      <td mat-cell *matCellDef=\"let row\">\n        <span class=\"mobile-label\">Action: </span>\n        <button mat-icon-button (click)=\"deleteItem(row)\">\n          <mat-icon color=\"warn\">delete</mat-icon>\n        </button>\n      </td>\n      <td mat-footer-cell *matFooterCellDef> </td>\n    </ng-container>\n\n    <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n    <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\n    <tr mat-footer-row *matFooterRowDef=\"displayedColumns\"></tr>\n  </table>\n</div>\n<div class=\"spinner-container\" *ngIf=\"showSpinner\">\n  <mat-spinner color=\"primary\" diameter=\"60\" strokeWidth=\"3\"></mat-spinner>\n</div>"
 
 /***/ }),
 
@@ -223,7 +226,7 @@ module.exports = "<div class=\"mrg15\">\n  <!-- <p class=\"warn\">{{errorLog}}</
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".mrg15 {\n  margin: 15px; }\n\n.width100 {\n  width: 100% !important; }\n\n.warn {\n  color: red; }\n\n.mrgTop15 {\n  margin-top: 15px; }\n\n.mrgBtm15 {\n  margin-bottom: 15px; }\n\n.mat-grid-tile.align-right ::ng-deep .mat-figure {\n  justify-content: flex-end; }\n\n.mat-grid-tile.align-left ::ng-deep .mat-figure {\n  justify-content: flex-start; }\n\n.mat-header-row {\n  background-color: lightblue; }\n\n.mat-footer-row {\n  background-color: antiquewhite; }\n\n.width100 {\n  width: 100%; }\n\n.height100 {\n  height: 100%; }\n\n.mrgTop20 {\n  margin-top: 20px; }\n\n.mobile-label {\n  display: none; }\n\n@media (max-width: 414px) {\n  td.mat-cell:first-of-type {\n    padding-left: 0; }\n  td.mat-cell {\n    border: 0; }\n  .mobile-label {\n    width: 90px;\n    display: inline-block;\n    font-weight: bold; }\n  .mat-header-row {\n    display: none; }\n  .mat-row {\n    display: flex;\n    flex-direction: column;\n    align-items: flex-start;\n    padding: 8px 24px;\n    width: 100%;\n    height: 100%;\n    border-bottom: 1px solid rgba(0, 0, 0, 0.12); } }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYmlsbC9EOlxcZ2l0aHViLXJlcG9zXFx3ZWVrbHktcGxhbm5lci9zcmNcXGFwcFxcYmlsbFxcYmlsbC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLFlBQVcsRUFBQTs7QUFFYjtFQUNFLHNCQUFzQixFQUFBOztBQUV4QjtFQUNFLFVBQVMsRUFBQTs7QUFFWDtFQUNFLGdCQUFlLEVBQUE7O0FBRWpCO0VBQ0UsbUJBQW1CLEVBQUE7O0FBRXJCO0VBQ0UseUJBQXlCLEVBQUE7O0FBRTNCO0VBQ0UsMkJBQTJCLEVBQUE7O0FBRTdCO0VBQ0UsMkJBQTJCLEVBQUE7O0FBRzdCO0VBQ0UsOEJBQThCLEVBQUE7O0FBRWhDO0VBQ0UsV0FBVSxFQUFBOztBQUVaO0VBQ0UsWUFBWSxFQUFBOztBQUVkO0VBQ0UsZ0JBQWUsRUFBQTs7QUFHakI7RUFDRSxhQUFhLEVBQUE7O0FBR2Y7RUFDRTtJQUNFLGVBQWUsRUFBQTtFQUVqQjtJQUNFLFNBQVEsRUFBQTtFQUVWO0lBQ0UsV0FBVztJQUNYLHFCQUFxQjtJQUNyQixpQkFBaUIsRUFBQTtFQUduQjtJQUNFLGFBQWEsRUFBQTtFQUdmO0lBQ0UsYUFBYTtJQUNiLHNCQUFzQjtJQUN0Qix1QkFBdUI7SUFDdkIsaUJBQWlCO0lBQ2pCLFdBQVc7SUFDWCxZQUFZO0lBQ1osNENBQXdDLEVBQUEsRUFDekMiLCJmaWxlIjoic3JjL2FwcC9iaWxsL2JpbGwuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIubXJnMTV7XHJcbiAgbWFyZ2luOjE1cHg7XHJcbn1cclxuLndpZHRoMTAwe1xyXG4gIHdpZHRoOiAxMDAlICFpbXBvcnRhbnQ7XHJcbn1cclxuLndhcm57XHJcbiAgY29sb3I6cmVkO1xyXG59XHJcbi5tcmdUb3AxNXtcclxuICBtYXJnaW4tdG9wOjE1cHg7XHJcbn0gXHJcbi5tcmdCdG0xNXtcclxuICBtYXJnaW4tYm90dG9tOiAxNXB4O1xyXG59XHJcbi5tYXQtZ3JpZC10aWxlLmFsaWduLXJpZ2h0IDo6bmctZGVlcCAubWF0LWZpZ3VyZXtcclxuICBqdXN0aWZ5LWNvbnRlbnQ6IGZsZXgtZW5kO1xyXG59XHJcbi5tYXQtZ3JpZC10aWxlLmFsaWduLWxlZnQgOjpuZy1kZWVwIC5tYXQtZmlndXJle1xyXG4gIGp1c3RpZnktY29udGVudDogZmxleC1zdGFydDtcclxufVxyXG4ubWF0LWhlYWRlci1yb3d7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogbGlnaHRibHVlO1xyXG59XHJcblxyXG4ubWF0LWZvb3Rlci1yb3d7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogYW50aXF1ZXdoaXRlO1xyXG59XHJcbi53aWR0aDEwMHtcclxuICB3aWR0aDoxMDAlO1xyXG59XHJcbi5oZWlnaHQxMDB7XHJcbiAgaGVpZ2h0OiAxMDAlO1xyXG59XHJcbi5tcmdUb3AyMHtcclxuICBtYXJnaW4tdG9wOjIwcHg7XHJcbn1cclxuXHJcbi5tb2JpbGUtbGFiZWwge1xyXG4gIGRpc3BsYXk6IG5vbmU7XHJcbn1cclxuXHJcbkBtZWRpYShtYXgtd2lkdGg6IDQxNHB4KSB7XHJcbiAgdGQubWF0LWNlbGw6Zmlyc3Qtb2YtdHlwZXtcclxuICAgIHBhZGRpbmctbGVmdDogMDtcclxuICB9XHJcbiAgdGQubWF0LWNlbGx7XHJcbiAgICBib3JkZXI6MDtcclxuICB9XHJcbiAgLm1vYmlsZS1sYWJlbCB7XHJcbiAgICB3aWR0aDogOTBweDtcclxuICAgIGRpc3BsYXk6IGlubGluZS1ibG9jaztcclxuICAgIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG4gIH1cclxuXHJcbiAgLm1hdC1oZWFkZXItcm93IHtcclxuICAgIGRpc3BsYXk6IG5vbmU7XHJcbiAgfVxyXG5cclxuICAubWF0LXJvdyB7IFxyXG4gICAgZGlzcGxheTogZmxleDtcclxuICAgIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XHJcbiAgICBhbGlnbi1pdGVtczogZmxleC1zdGFydDtcclxuICAgIHBhZGRpbmc6IDhweCAyNHB4O1xyXG4gICAgd2lkdGg6IDEwMCU7XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbiAgICBib3JkZXItYm90dG9tOiAxcHggc29saWQgcmdiYSgwLDAsMCwuMTIpO1xyXG4gIH1cclxufSJdfQ== */"
+module.exports = ".mrg15 {\n  margin: 15px; }\n\n.width100 {\n  width: 100% !important; }\n\n.warn {\n  color: red; }\n\n.mrgTop15 {\n  margin-top: 15px; }\n\n.mrgBtm15 {\n  margin-bottom: 15px; }\n\n.mat-grid-tile.align-right ::ng-deep .mat-figure {\n  justify-content: flex-end; }\n\n.mat-grid-tile.align-left ::ng-deep .mat-figure {\n  justify-content: flex-start; }\n\n.mat-header-row {\n  background-color: lightblue; }\n\n.mat-footer-row {\n  background-color: antiquewhite; }\n\n.width100 {\n  width: 100%; }\n\n.height100 {\n  height: 100%; }\n\n.mrgTop20 {\n  margin-top: 20px; }\n\n.mobile-label {\n  display: none; }\n\n@media (max-width: 414px) {\n  td.mat-cell:first-of-type {\n    padding-left: 0; }\n  td.mat-cell {\n    border: 0; }\n  .mobile-label {\n    width: 90px;\n    display: inline-block;\n    font-weight: bold; }\n  .mat-header-row {\n    display: none; }\n  .mat-row {\n    display: flex;\n    flex-direction: column;\n    align-items: flex-start;\n    padding: 8px 24px;\n    width: 100%;\n    height: 100%;\n    border-bottom: 1px solid rgba(0, 0, 0, 0.12); } }\n\n.spinner-container {\n  position: fixed;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(0, 0, 0, 0.4);\n  top: 0;\n  left: 0; }\n\n.spinner-container mat-spinner {\n    position: absolute;\n    top: calc(50% - 30px);\n    left: calc(50% - 30px); }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYmlsbC9EOlxcZ2l0aHViLXJlcG9zXFx3ZWVrbHktcGxhbm5lci9zcmNcXGFwcFxcYmlsbFxcYmlsbC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLFlBQVcsRUFBQTs7QUFFYjtFQUNFLHNCQUFzQixFQUFBOztBQUV4QjtFQUNFLFVBQVMsRUFBQTs7QUFFWDtFQUNFLGdCQUFlLEVBQUE7O0FBRWpCO0VBQ0UsbUJBQW1CLEVBQUE7O0FBRXJCO0VBQ0UseUJBQXlCLEVBQUE7O0FBRTNCO0VBQ0UsMkJBQTJCLEVBQUE7O0FBRTdCO0VBQ0UsMkJBQTJCLEVBQUE7O0FBRzdCO0VBQ0UsOEJBQThCLEVBQUE7O0FBRWhDO0VBQ0UsV0FBVSxFQUFBOztBQUVaO0VBQ0UsWUFBWSxFQUFBOztBQUVkO0VBQ0UsZ0JBQWUsRUFBQTs7QUFHakI7RUFDRSxhQUFhLEVBQUE7O0FBR2Y7RUFDRTtJQUNFLGVBQWUsRUFBQTtFQUVqQjtJQUNFLFNBQVEsRUFBQTtFQUVWO0lBQ0UsV0FBVztJQUNYLHFCQUFxQjtJQUNyQixpQkFBaUIsRUFBQTtFQUduQjtJQUNFLGFBQWEsRUFBQTtFQUdmO0lBQ0UsYUFBYTtJQUNiLHNCQUFzQjtJQUN0Qix1QkFBdUI7SUFDdkIsaUJBQWlCO0lBQ2pCLFdBQVc7SUFDWCxZQUFZO0lBQ1osNENBQXdDLEVBQUEsRUFDekM7O0FBSUg7RUFDRSxlQUFlO0VBQ2YsV0FBVztFQUNYLFlBQVk7RUFDWixvQ0FBaUM7RUFDakMsTUFBTTtFQUNOLE9BQU8sRUFBQTs7QUFOVDtJQVNJLGtCQUFrQjtJQUNsQixxQkFBcUI7SUFDckIsc0JBQXNCLEVBQUEiLCJmaWxlIjoic3JjL2FwcC9iaWxsL2JpbGwuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIubXJnMTV7XHJcbiAgbWFyZ2luOjE1cHg7XHJcbn1cclxuLndpZHRoMTAwe1xyXG4gIHdpZHRoOiAxMDAlICFpbXBvcnRhbnQ7XHJcbn1cclxuLndhcm57XHJcbiAgY29sb3I6cmVkO1xyXG59XHJcbi5tcmdUb3AxNXtcclxuICBtYXJnaW4tdG9wOjE1cHg7XHJcbn0gXHJcbi5tcmdCdG0xNXtcclxuICBtYXJnaW4tYm90dG9tOiAxNXB4O1xyXG59XHJcbi5tYXQtZ3JpZC10aWxlLmFsaWduLXJpZ2h0IDo6bmctZGVlcCAubWF0LWZpZ3VyZXtcclxuICBqdXN0aWZ5LWNvbnRlbnQ6IGZsZXgtZW5kO1xyXG59XHJcbi5tYXQtZ3JpZC10aWxlLmFsaWduLWxlZnQgOjpuZy1kZWVwIC5tYXQtZmlndXJle1xyXG4gIGp1c3RpZnktY29udGVudDogZmxleC1zdGFydDtcclxufVxyXG4ubWF0LWhlYWRlci1yb3d7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogbGlnaHRibHVlO1xyXG59XHJcblxyXG4ubWF0LWZvb3Rlci1yb3d7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogYW50aXF1ZXdoaXRlO1xyXG59XHJcbi53aWR0aDEwMHtcclxuICB3aWR0aDoxMDAlO1xyXG59XHJcbi5oZWlnaHQxMDB7XHJcbiAgaGVpZ2h0OiAxMDAlO1xyXG59XHJcbi5tcmdUb3AyMHtcclxuICBtYXJnaW4tdG9wOjIwcHg7XHJcbn1cclxuXHJcbi5tb2JpbGUtbGFiZWwge1xyXG4gIGRpc3BsYXk6IG5vbmU7XHJcbn1cclxuXHJcbkBtZWRpYShtYXgtd2lkdGg6IDQxNHB4KSB7XHJcbiAgdGQubWF0LWNlbGw6Zmlyc3Qtb2YtdHlwZXtcclxuICAgIHBhZGRpbmctbGVmdDogMDtcclxuICB9XHJcbiAgdGQubWF0LWNlbGx7XHJcbiAgICBib3JkZXI6MDtcclxuICB9XHJcbiAgLm1vYmlsZS1sYWJlbCB7XHJcbiAgICB3aWR0aDogOTBweDtcclxuICAgIGRpc3BsYXk6IGlubGluZS1ibG9jaztcclxuICAgIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG4gIH1cclxuXHJcbiAgLm1hdC1oZWFkZXItcm93IHtcclxuICAgIGRpc3BsYXk6IG5vbmU7XHJcbiAgfVxyXG5cclxuICAubWF0LXJvdyB7IFxyXG4gICAgZGlzcGxheTogZmxleDtcclxuICAgIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XHJcbiAgICBhbGlnbi1pdGVtczogZmxleC1zdGFydDtcclxuICAgIHBhZGRpbmc6IDhweCAyNHB4O1xyXG4gICAgd2lkdGg6IDEwMCU7XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbiAgICBib3JkZXItYm90dG9tOiAxcHggc29saWQgcmdiYSgwLDAsMCwuMTIpO1xyXG4gIH1cclxuXHJcbn1cclxuXHJcbi5zcGlubmVyLWNvbnRhaW5lcntcclxuICBwb3NpdGlvbjogZml4ZWQ7XHJcbiAgd2lkdGg6IDEwMCU7XHJcbiAgaGVpZ2h0OiAxMDAlO1xyXG4gIGJhY2tncm91bmQtY29sb3I6IHJnYmEoMCwwLDAsMC40KTtcclxuICB0b3A6IDA7XHJcbiAgbGVmdDogMDtcclxuXHJcbiAgbWF0LXNwaW5uZXJ7XHJcbiAgICBwb3NpdGlvbjogYWJzb2x1dGU7XHJcbiAgICB0b3A6IGNhbGMoNTAlIC0gMzBweCk7XHJcbiAgICBsZWZ0OiBjYWxjKDUwJSAtIDMwcHgpO1xyXG4gIH1cclxufSJdfQ== */"
 
 /***/ }),
 
@@ -254,6 +257,7 @@ var BillComponent = /** @class */ (function () {
         this.fb = fb;
         this.sharedService = sharedService;
         this.db = db;
+        this.showSpinner = false;
         this.basePath = this.sharedService.basePath;
         this.currentMonth = (Number((new Date()).getMonth() + 1) < 10) ?
             "0" + Number((new Date()).getMonth() + 1) :
@@ -336,6 +340,10 @@ var BillComponent = /** @class */ (function () {
             {
                 value: 'Ymca Bill',
                 viewValue: 'Ymca Bill'
+            },
+            {
+                value: 'Internet Bill',
+                viewValue: 'Internet Bill'
             },
             {
                 value: 'Custom',
@@ -450,11 +458,14 @@ var BillComponent = /** @class */ (function () {
     BillComponent.prototype.getTableData = function (billURL) {
         var _this = this;
         if (billURL === void 0) { billURL = this.basePath; }
+        this.billTotal = 0;
+        this.showSpinner = true;
         this.bills = [];
         this.dataStore = this.db.collection(billURL, function (ref) { return ref.orderBy('billDate'); }).valueChanges();
         this.dataStore.subscribe(function (result) {
             _this.bills = result.filter(function (obj) { return obj.deleteFlag === false; });
             _this.billTotal = _this.bills.map(function (obj) { return obj.billAmount; }).reduce(function (acc, value) { return acc + value; }, 0);
+            _this.showSpinner = false;
         });
     };
     BillComponent.prototype.createForm = function () {
@@ -470,6 +481,7 @@ var BillComponent = /** @class */ (function () {
     };
     BillComponent.prototype.addBill = function () {
         var _this = this;
+        this.showSpinner = true;
         var billMonth = (Number((new Date(this.billForm.controls.billDate.value)).getMonth() + 1) < 10) ?
             "0" + Number((new Date(this.billForm.controls.billDate.value)).getMonth() + 1) :
             "" + Number((new Date(this.billForm.controls.billDate.value)).getMonth() + 1);
@@ -479,15 +491,18 @@ var BillComponent = /** @class */ (function () {
             _this.billForm.controls.billId.setValue(data.size);
             _this.sharedService.addBill(billURL, _this.billForm.value);
             _this.createForm();
+            _this.showSpinner = false;
         });
     };
     BillComponent.prototype.deleteItem = function (selectedRow) {
+        this.showSpinner = true;
         var billMonth = (Number((new Date(selectedRow.billDate.toDate())).getMonth() + 1) < 10) ?
             "0" + Number((new Date(selectedRow.billDate.toDate())).getMonth() + 1) :
             "" + Number((new Date(selectedRow.billDate.toDate())).getMonth() + 1);
         var billYear = Number((new Date(selectedRow.billDate.toDate())).getFullYear());
         var billURL = "/bills_" + billMonth + "_" + billYear;
         this.updateDoc(billURL, selectedRow.billId, { deleteFlag: true });
+        this.showSpinner = false;
     };
     BillComponent.prototype.updateDoc = function (billURL, billId, requestObj) {
         var _this = this;
@@ -512,6 +527,62 @@ var BillComponent = /** @class */ (function () {
             _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_4__["AngularFirestore"]])
     ], BillComponent);
     return BillComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/confirmation-dialog/confirmation-dialog.component.html":
+/*!************************************************************************!*\
+  !*** ./src/app/confirmation-dialog/confirmation-dialog.component.html ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h1 mat-dialog-title> Please Confirm !!</h1>\n<div mat-dialog-content>\n  <p>What's your favorite animal?</p>\n</div>\n<div mat-dialog-actions>\n  <button mat-button>Sure</button>\n  <button mat-button [mat-dialog-close]=\"true\" cdkFocusInitial>Cancel</button>\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/confirmation-dialog/confirmation-dialog.component.scss":
+/*!************************************************************************!*\
+  !*** ./src/app/confirmation-dialog/confirmation-dialog.component.scss ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2NvbmZpcm1hdGlvbi1kaWFsb2cvY29uZmlybWF0aW9uLWRpYWxvZy5jb21wb25lbnQuc2NzcyJ9 */"
+
+/***/ }),
+
+/***/ "./src/app/confirmation-dialog/confirmation-dialog.component.ts":
+/*!**********************************************************************!*\
+  !*** ./src/app/confirmation-dialog/confirmation-dialog.component.ts ***!
+  \**********************************************************************/
+/*! exports provided: ConfirmationDialogComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ConfirmationDialogComponent", function() { return ConfirmationDialogComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+
+var ConfirmationDialogComponent = /** @class */ (function () {
+    function ConfirmationDialogComponent() {
+    }
+    ConfirmationDialogComponent.prototype.ngOnInit = function () {
+    };
+    ConfirmationDialogComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-confirmation-dialog',
+            template: __webpack_require__(/*! ./confirmation-dialog.component.html */ "./src/app/confirmation-dialog/confirmation-dialog.component.html"),
+            styles: [__webpack_require__(/*! ./confirmation-dialog.component.scss */ "./src/app/confirmation-dialog/confirmation-dialog.component.scss")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], ConfirmationDialogComponent);
+    return ConfirmationDialogComponent;
 }());
 
 
@@ -553,7 +624,9 @@ var ImportMaterialModuleModule = /** @class */ (function () {
                 _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatGridListModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatTableModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatIconModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDividerModule"]
+                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDividerModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatProgressSpinnerModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDialogModule"]
             ],
             exports: [
                 _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatFormFieldModule"],
@@ -565,7 +638,9 @@ var ImportMaterialModuleModule = /** @class */ (function () {
                 _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatGridListModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatTableModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatIconModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDividerModule"]
+                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDividerModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatProgressSpinnerModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDialogModule"]
             ]
         })
     ], ImportMaterialModuleModule);
