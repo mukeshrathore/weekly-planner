@@ -79,11 +79,11 @@
 
   <mat-grid-list cols="1" rowHeight="50px">
     <mat-grid-tile colspan="1">
-      <button mat-icon-button (click)="getSelectedMonth('prev')">
+      <button mat-icon-button (click)="getSelectedMonth('prev')" color="primary">
         <mat-icon aria-label="Previous Month">keyboard_arrow_left</mat-icon>
       </button>
       {{selectedMonth}}
-      <button mat-icon-button (click)="getSelectedMonth('next')">
+      <button mat-icon-button (click)="getSelectedMonth('next')" color="primary">
         <mat-icon aria-label="Next Month">keyboard_arrow_right</mat-icon>
       </button>
     </mat-grid-tile>

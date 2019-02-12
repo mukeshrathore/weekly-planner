@@ -15,13 +15,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { StoreComponent } from './store/store.component';
 import { ImportMaterialModuleModule } from './import-material-module.module';
 import { DatePipe } from '@angular/common';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BillComponent,
     PageNotFoundComponent,
-    StoreComponent
+    StoreComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     BrowserModule,
